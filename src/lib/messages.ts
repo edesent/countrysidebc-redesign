@@ -105,17 +105,47 @@ function parseTitle(raw: string, isoDate: string) {
   return { title, speaker, serviceDate };
 }
 
+const FEED_UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36";
+
+/**
+ * YouTube throttles bursts of feed requests from datacenter IPs and answers
+ * with a 404 or 500 HTML page rather than a 429. A single failed attempt at
+ * build time would otherwise be cached as an empty sermon list for the whole
+ * revalidation window, so retry before giving up — and never cache a failure.
+ */
+async function fetchFeed(): Promise<string | null> {
+  const delays = [0, 400, 1200];
+
+  for (const delay of delays) {
+    if (delay) await new Promise((resolve) => setTimeout(resolve, delay));
+
+    try {
+      const response = await fetch(site.social.youtubeChannelFeed, {
+        headers: {
+          "User-Agent": FEED_UA,
+          Accept: "application/atom+xml,application/xml,text/xml,*/*",
+        },
+        next: { revalidate: 1800 },
+      });
+
+      if (!response.ok) continue;
+
+      const xml = await response.text();
+      if (xml.includes("<entry>")) return xml;
+    } catch {
+      // fall through to the next attempt
+    }
+  }
+
+  return null;
+}
+
 export async function getMessages(limit = 15): Promise<MessageItem[]> {
   try {
-    const response = await fetch(site.social.youtubeChannelFeed, {
-      next: { revalidate: 1800 },
-    });
+    const xml = await fetchFeed();
+    if (!xml) return [];
 
-    if (!response.ok) {
-      return [];
-    }
-
-    const xml = await response.text();
     const entries = xml.match(/<entry>[\s\S]*?<\/entry>/g) || [];
 
     return entries.slice(0, limit).map((entry) => {
