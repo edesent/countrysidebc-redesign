@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+/* ── Self-hosted fonts (next/font/google can fail the Vercel build) ────────── */
+@font-face {
+  font-family: "Cinzel";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/cinzel.woff2") format("woff2");
+}
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/ebgaramond.woff2") format("woff2");
+}
+/* The italic is a separate face. Without it the browser synthesises a slant,
+   and — worse — a roman-less family makes every heading italic by default,
+   which kills the emphasis italics used on "used to be", service times and
+   section numerals. */
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/ebgaramond-italic.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("/fonts/inter.woff2") format("woff2");
+}
+
+@theme {
+  /* Palette drawn entirely from the church's own material:
+     — oak / honey:   the pulpit, pews and wainscot in their sanctuary
+     — stone:         the stacked-stone wall behind the pulpit
+     — cream / linen: their sanctuary walls and panel molding
+     — gold:          the open-Bible line in their own logo (#FFD479)
+     — claret:        the flower arrangement and pew hymnals            */
+  --color-ink: #221e17;
+  --color-ink-soft: #3b3428;
+  --color-oak: #a8712b;
+  --color-oak-light: #c99551;
+  --color-oak-dark: #7c5218;
+  --color-gold: #bc8f2f;
+  --color-gold-light: #ffd479;
+  --color-gold-pale: #f4e3bd;
+  --color-cream: #fbf7ee;
+  --color-parchment: #f4eee2;
+  --color-linen: #e9e1d1;
+  --color-linen-dark: #d8cdb8;
+  --color-stone: #6d6559;
+  --color-stone-cool: #4c5760;
+  --color-claret: #8c2733;
+  --color-claret-dark: #6b1c26;
+  --color-text-body: #3d372e;
+  --color-text-light: #6b6459;
+  --color-text-muted: #8f877a;
+
+  --font-sans: "Inter", -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-display: "EB Garamond", Georgia, "Times New Roman", serif;
+  --font-caps: "Cinzel", Georgia, serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-text-body);
+    background: var(--color-cream);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Kept inside @layer base so Tailwind text-* utilities still win on links. */
+  a {
+    color: inherit;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  ::selection {
+    background: rgba(188, 143, 47, 0.28);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  .section-pad {
+    padding-block: clamp(4rem, 7.5vw, 7.5rem);
+  }
+
+  /* Small letterspaced Cinzel label above a section heading. */
+  .eyebrow {
+    font-family: var(--font-caps);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-oak);
+  }
+
+  /* The display face. Never sets its own color — let text-* utilities decide. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.012em;
+  }
+
+  .caps {
+    font-family: var(--font-caps);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  /* A hairline gold rule with a diamond at its centre — the recurring divider. */
+  .rule-diamond {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .rule-diamond::before,
+  .rule-diamond::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.28;
+  }
+
+  /* Warm paper grain — subtle, no busy texture. */
+  .paper {
+    background-color: var(--color-cream);
+    background-image: radial-gradient(
+        circle at 18% 12%,
+        rgba(188, 143, 47, 0.055),
+        transparent 45%
+      ),
+      radial-gradient(
+        circle at 84% 78%,
+        rgba(109, 101, 89, 0.05),
+        transparent 42%
+      );
+  }
+
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+  }
+
+  .prose-scripture p {
+    margin-block: 0.9em;
+  }
+
+  /* Verse references inside the salvation tract and statement of faith. */
+  .ref {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.01em;
+    color: var(--color-text-muted);
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.22, 0.8, 0.28, 1) forwards;
+}
+
+.delay-1 {
+  animation-delay: 0.12s;
+}
+.delay-2 {
+  animation-delay: 0.26s;
+}
+.delay-3 {
+  animation-delay: 0.4s;
+}
+.delay-4 {
+  animation-delay: 0.54s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

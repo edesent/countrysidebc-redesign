@@ -1,0 +1,179 @@
+import Image from "next/image";
+import Link from "next/link";
+import type { MessageItem } from "@/lib/messages";
+import { site } from "@/lib/site";
+
+function PlayBadge() {
+  return (
+    <span
+      aria-hidden="true"
+      className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-cream/60 bg-ink/55 text-cream backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:border-gold-light group-hover:bg-ink/70"
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor" className="ml-0.5 h-5 w-5">
+        <path d="M8 5.5v13l11-6.5-11-6.5Z" />
+      </svg>
+    </span>
+  );
+}
+
+export function MessageCard({
+  message,
+  featured = false,
+}: {
+  message: MessageItem;
+  featured?: boolean;
+}) {
+  return (
+    <a
+      href={message.url}
+      target="_blank"
+      rel="noreferrer"
+      className="focus-ring group flex flex-col overflow-hidden rounded-sm border border-linen-dark bg-cream transition-shadow hover:shadow-[0_26px_55px_-32px_rgba(34,30,23,0.45)]"
+    >
+      {/* Fixed 16:9 window with object-cover, so a 4:3 fallback thumbnail
+          crops instead of showing YouTube's black letterbox bars. */}
+      <span className="relative block aspect-video overflow-hidden bg-ink/90">
+        <Image
+          src={message.thumbnail}
+          alt=""
+          fill
+          sizes={
+            featured
+              ? "(max-width: 1024px) 100vw, 60vw"
+              : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          }
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+        />
+        <PlayBadge />
+      </span>
+      <span className="flex flex-1 flex-col p-6">
+        {message.serviceDate && (
+          <span className="caps text-[0.6rem] font-semibold text-text-muted">
+            {message.serviceDate}
+          </span>
+        )}
+        <span
+          className={`display mt-2 leading-tight text-ink ${
+            featured ? "text-[1.85rem]" : "text-[1.35rem]"
+          }`}
+        >
+          {message.title}
+        </span>
+        {message.speaker && (
+          <span className="mt-3 text-[0.85rem] text-text-light">
+            {message.speaker}
+          </span>
+        )}
+        <span
+          aria-hidden="true"
+          className="mt-5 h-px w-8 bg-gold/50 transition-all duration-300 group-hover:w-16"
+        />
+      </span>
+    </a>
+  );
+}
+
+/** Shown when YouTube's feed is unreachable, so the section never renders empty. */
+function FeedFallback() {
+  return (
+    <div className="rounded-sm border border-linen-dark bg-cream p-10 text-center">
+      <p className="display text-xl text-ink">
+        The sermon list is taking a moment to load.
+      </p>
+      <p className="mt-3 text-[0.9rem] text-text-light">
+        Every service is posted to our YouTube channel.
+      </p>
+      <a
+        href={site.social.youtube}
+        target="_blank"
+        rel="noreferrer"
+        className="focus-ring caps mt-6 inline-block rounded-sm bg-ink px-5 py-3 text-[0.66rem] font-semibold text-cream transition hover:bg-oak-dark"
+      >
+        Open the channel
+      </a>
+    </div>
+  );
+}
+
+/** Homepage strip: the newest service played large, then the next three. */
+export function LatestMessages({ messages }: { messages: MessageItem[] }) {
+  if (messages.length === 0) {
+    return (
+      <section className="section-pad paper">
+        <div className="mx-auto max-w-3xl px-6 lg:px-10">
+          <FeedFallback />
+        </div>
+      </section>
+    );
+  }
+
+  const [featured, ...rest] = messages;
+
+  return (
+    <section className="section-pad paper">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <p className="eyebrow">Sermons</p>
+            <h2 className="display mt-4 text-[clamp(2.1rem,4.4vw,3.3rem)] text-ink">
+              Every service, preached and posted.
+            </h2>
+            <p className="mt-6 leading-relaxed text-text-light">
+              Sunday morning, Sunday evening, and Wednesday night all go up on
+              our channel. Listen to one before you visit — you will know exactly
+              what the preaching is like.
+            </p>
+          </div>
+          <Link
+            href="/sermons"
+            className="focus-ring caps group inline-flex shrink-0 items-center gap-2.5 text-[0.68rem] font-semibold text-oak-dark"
+          >
+            All sermons
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+              className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
+            >
+              <path
+                d="M5 12h14m0 0-5-5m5 5-5 5"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </Link>
+        </div>
+
+        <div className="mt-12 grid gap-8 lg:grid-cols-[1.35fr_1fr]">
+          <MessageCard message={featured} featured />
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+            {rest.slice(0, 3).map((message) => (
+              <MessageCard key={message.id} message={message} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Full archive grid for /sermons. */
+export default function MessagesLibrary({
+  messages,
+}: {
+  messages: MessageItem[];
+}) {
+  if (messages.length === 0) {
+    return <FeedFallback />;
+  }
+
+  return (
+    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {messages.map((message) => (
+        <MessageCard key={message.id} message={message} />
+      ))}
+    </div>
+  );
+}
