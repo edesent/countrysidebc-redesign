@@ -1,11 +1,24 @@
 /**
- * The church's own mark, redrawn.
+ * The church's own logo.
  *
- * Their logo is a script "Countryside" sitting over a line-drawn open Bible in
- * pale gold, with "BAPTIST CHURCH" in outlined caps beneath. Only a 326px PNG
- * of it exists, so the Bible is redrawn here as clean SVG geometry in their own
- * gold (#FFD479, darkened to #bc8f2f where it must carry on cream), and the
- * wordmark is set in live type so it stays sharp at any size on any band.
+ * `Logo` is their real mark — the script "Countryside" over a line-drawn open
+ * Bible with "BAPTIST CHURCH" in caps beneath. The church has no vector copy of
+ * it; the largest raster that exists anywhere is the 326x175 PNG kept beside
+ * these files as `public/csbc/wordmark-source.png`. That PNG was colour-separated
+ * (gold line art vs. lettering) and traced to vector, so the lockup is now sharp
+ * at any size instead of topping out at 326px. Two colourways are checked in:
+ *
+ *   wordmark-ink.svg    ink #221e17 + gold #bc8f2f  — for cream bands
+ *   wordmark-cream.svg  cream #fbf7ee + gold #ffd479 — for ink bands
+ *
+ * The cream one is the church's own footer artwork, not a recolour we invented.
+ * To regenerate either file, re-trace from `wordmark-source.png`; do not redraw
+ * the lettering by hand and do not substitute a script font for it.
+ *
+ * `BibleMark` below is a *separate*, simplified redraw of just the open-Bible
+ * outline. It is decorative only — the oversized watermark behind the scripture
+ * banner — and is deliberately cleaner than the real line art, which is too
+ * fine to read at that scale. It is not the logo; do not swap it in for one.
  */
 
 export function BibleMark({ className = "" }: { className?: string }) {
@@ -65,39 +78,37 @@ export function BibleMark({ className = "" }: { className?: string }) {
 type LogoProps = {
   /** "ink" for cream bands, "cream" for dark bands. */
   tone?: "ink" | "cream";
-  /** Drop the Bible line-drawing — used where space is tight. */
-  bare?: boolean;
+  /**
+   * Leave empty where an ancestor already labels the logo — the navbar's home
+   * link does, and a duplicate label just gets announced twice.
+   */
+  alt?: string;
   className?: string;
 };
 
+const WORDMARK = {
+  ink: "/csbc/wordmark-ink.svg",
+  cream: "/csbc/wordmark-cream.svg",
+} as const;
+
+/** Intrinsic size of the traced artwork, cropped to the ink. */
+const WORDMARK_SIZE = { width: 326, height: 92 };
+
 export default function Logo({
   tone = "ink",
-  bare = false,
+  alt = "Countryside Baptist Church",
   className = "",
 }: LogoProps) {
-  const word = tone === "ink" ? "text-ink" : "text-cream";
-  const sub = tone === "ink" ? "text-oak" : "text-gold-light";
-  const mark = tone === "ink" ? "text-gold" : "text-gold-light";
-
   return (
-    <span className={`relative block leading-none ${className}`}>
-      {!bare && (
-        <BibleMark
-          className={`pointer-events-none absolute left-1/2 top-1/2 h-[114%] w-[118%] -translate-x-1/2 -translate-y-[72%] ${mark} opacity-[0.72]`}
-        />
-      )}
-      <span className="relative block text-center">
-        <span
-          className={`display block text-[1.62em] italic leading-[0.95] ${word}`}
-        >
-          Countryside
-        </span>
-        <span
-          className={`caps mt-[0.22em] block text-[0.54em] font-semibold leading-none tracking-[0.16em] ${sub}`}
-        >
-          Baptist Church
-        </span>
-      </span>
-    </span>
+    // A two-colour SVG lockup: nothing for the image optimiser to do, and
+    // inlining ~100KB of traced path data into every page would be worse.
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={WORDMARK[tone]}
+      alt={alt}
+      width={WORDMARK_SIZE.width}
+      height={WORDMARK_SIZE.height}
+      className={`block h-auto ${className}`}
+    />
   );
 }

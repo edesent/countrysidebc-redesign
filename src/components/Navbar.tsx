@@ -75,7 +75,7 @@ export default function Navbar() {
             className="focus-ring shrink-0 py-1"
             aria-label="Countryside Baptist Church — home"
           >
-            <Logo className="w-[9.5rem] text-[1.02rem] sm:w-[11rem] sm:text-[1.15rem]" />
+            <Logo alt="" className="w-[9.5rem] sm:w-[11rem]" />
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
