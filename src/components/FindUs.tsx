@@ -1,12 +1,13 @@
+import Image from "next/image";
 import Link from "next/link";
 import Phone from "@/components/Phone";
-import { serviceTimes, site } from "@/lib/site";
+import { site } from "@/lib/site";
 
 export default function FindUs() {
   return (
     <section id="visit" className="section-pad paper">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
+        <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
           <div>
             <p className="eyebrow">Come and see</p>
             <h2 className="display mt-4 text-[clamp(2.1rem,4.4vw,3.3rem)] text-ink">
@@ -57,46 +58,65 @@ export default function FindUs() {
                 Send a Message
               </Link>
             </div>
+
+            <Link
+              href="/visit"
+              className="focus-ring caps group mt-8 inline-flex items-center gap-2.5 text-[0.66rem] font-semibold text-oak-dark"
+            >
+              Questions a first-time visitor asks
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+                className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
+              >
+                <path
+                  d="M5 12h14m0 0-5-5m5 5-5 5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
           </div>
 
-          <div className="overflow-hidden rounded-sm border border-linen-dark bg-cream">
-            <div className="border-b border-linen bg-parchment px-7 py-6">
-              <h3 className="display text-2xl text-ink">This week at church</h3>
-              <p className="mt-1.5 text-[0.85rem] text-text-light">
-                Every service is open, and every service is recorded.
-              </p>
-            </div>
-            <ul className="divide-y divide-linen">
-              {serviceTimes.map((service) => (
-                <li
-                  key={service.title}
-                  className="flex items-baseline justify-between gap-6 px-7 py-5"
-                >
-                  <div>
-                    <p className="display text-[1.25rem] text-ink">
-                      {service.title}
-                    </p>
-                    <p className="caps mt-1 text-[0.58rem] font-semibold text-text-muted">
-                      {service.day}
-                    </p>
-                  </div>
-                  <p className="display shrink-0 text-[1.35rem] italic text-oak-dark tabular-nums">
-                    {service.time}
-                  </p>
-                </li>
-              ))}
-            </ul>
-            <div className="border-t border-linen bg-parchment px-7 py-6">
-              <Link
-                href="/visit"
-                className="focus-ring caps group inline-flex items-center gap-2.5 text-[0.66rem] font-semibold text-oak-dark"
-              >
-                Questions a first-time visitor asks
+          {/* A map instead of the service times, which already appear in the
+              top bar, the hero, the Services section and the footer. It links
+              straight out to driving directions rather than embedding an
+              interactive map, which would eat the page's scroll. */}
+          <a
+            href={site.directionsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="focus-ring group block overflow-hidden rounded-sm border border-linen-dark bg-cream transition-shadow hover:shadow-[0_26px_55px_-32px_rgba(34,30,23,0.45)]"
+          >
+            <span className="relative block aspect-[4/3] overflow-hidden">
+              <Image
+                src="/csbc/map-shoemaker-road.jpg"
+                alt="A map of the church's location on Shoemaker Road SW, just off US-36 between Interstate 77 and Port Washington, Ohio, with the Tuscarawas River to the east."
+                width={1200}
+                height={900}
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </span>
+            <span className="flex items-center justify-between gap-6 border-t border-linen bg-parchment px-7 py-6">
+              <span>
+                <span className="display block text-xl text-ink">
+                  Just off US&#8209;36
+                </span>
+                <span className="mt-1 block text-[0.85rem] text-text-light">
+                  {site.address.street}, {site.address.city}
+                </span>
+              </span>
+              <span className="caps shrink-0 text-[0.66rem] font-semibold text-oak-dark">
+                Open in Maps
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   aria-hidden="true"
-                  className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
+                  className="ml-2 inline h-3.5 w-3.5 transition-transform group-hover:translate-x-1"
                 >
                   <path
                     d="M5 12h14m0 0-5-5m5 5-5 5"
@@ -106,9 +126,9 @@ export default function FindUs() {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </Link>
-            </div>
-          </div>
+              </span>
+            </span>
+          </a>
         </div>
       </div>
     </section>
