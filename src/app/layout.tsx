@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import DemoBanner from "@/components/DemoBanner";
 import { HashScroller } from "@/components/HashScroller";
 import { localKeywords, site, siteUrl } from "@/lib/site";
 import "./globals.css";
@@ -74,7 +73,6 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <DemoBanner />
         <HashScroller />
         {children}
       </body>
