@@ -30,9 +30,13 @@ export const site = {
   phoneDisplayEncoded: "KDc0MCkgNDk4LTU1MDA=", // (740) 498-5500
   contactPath: "/contact",
   geo: {
-    // Shoemaker Rd SW at US-36, Port Washington, per Google Maps.
-    latitude: 40.3196,
-    longitude: -81.5188,
+    // The church's own building, as mapped in OpenStreetMap ("Countryside
+    // Baptist Church" on Shoemaker Rd SW, just off US-36). The figure that
+    // used to sit here reverse-geocoded to River Road SW, about two miles
+    // north-east — wrong road. These coordinates go out in the Church
+    // JSON-LD, so they need to be the building, not the neighbourhood.
+    latitude: 40.3008478,
+    longitude: -81.5465712,
   },
   directionsUrl:
     "https://www.google.com/maps/dir/?api=1&destination=Countryside+Baptist+Church%2C+4283+Shoemaker+Rd+SW%2C+Port+Washington%2C+OH+43837",
