@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { HashScroller } from "@/components/HashScroller";
+import { CHAT } from "@/config/chat";
 import { localKeywords, site, siteUrl } from "@/lib/site";
 import "./globals.css";
 
@@ -75,6 +76,19 @@ export default function RootLayout({
         </a>
         <HashScroller />
         {children}
+        {/*
+          The chat bubble. A plain <script> on purpose: the widget reads its own
+          data- attributes off this tag, so they have to be in the served HTML
+          exactly as written.
+        */}
+        <script
+          src={`${CHAT.origin}/widget/wbc-chat.js`}
+          data-api={CHAT.origin}
+          data-key={CHAT.apiKey}
+          data-accent-color={CHAT.accentColor}
+          data-greeting={CHAT.greeting}
+          defer
+        />
       </body>
     </html>
   );
