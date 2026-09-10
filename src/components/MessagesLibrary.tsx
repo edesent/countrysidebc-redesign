@@ -3,13 +3,19 @@ import Link from "next/link";
 import type { MessageItem } from "@/lib/messages";
 import { site } from "@/lib/site";
 
-function PlayBadge() {
+function PlayBadge({ small = false }: { small?: boolean }) {
   return (
     <span
       aria-hidden="true"
-      className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-cream/60 bg-ink/55 text-cream backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:border-gold-light group-hover:bg-ink/70"
+      className={`absolute left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-cream/60 bg-ink/55 text-cream backdrop-blur-sm transition-all duration-300 group-hover:scale-110 group-hover:border-gold-light group-hover:bg-ink/70 ${
+        small ? "h-9 w-9" : "h-14 w-14"
+      }`}
     >
-      <svg viewBox="0 0 24 24" fill="currentColor" className="ml-0.5 h-5 w-5">
+      <svg
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        className={`ml-0.5 ${small ? "h-3.5 w-3.5" : "h-5 w-5"}`}
+      >
         <path d="M8 5.5v13l11-6.5-11-6.5Z" />
       </svg>
     </span>
@@ -19,20 +25,34 @@ function PlayBadge() {
 export function MessageCard({
   message,
   featured = false,
+  compact = false,
 }: {
   message: MessageItem;
   featured?: boolean;
+  /**
+   * A thumbnail beside the title instead of above it. The homepage pairs one
+   * featured service with three of these; stacked full-width cards ran far
+   * taller than the featured card beside them, which left it stretched into a
+   * mostly empty box.
+   */
+  compact?: boolean;
 }) {
   return (
     <a
       href={message.url}
       target="_blank"
       rel="noreferrer"
-      className="focus-ring group flex flex-col overflow-hidden rounded-sm border border-linen-dark bg-cream transition-shadow hover:shadow-[0_26px_55px_-32px_rgba(34,30,23,0.45)]"
+      className={`focus-ring group overflow-hidden rounded-sm border border-linen-dark bg-cream transition-shadow hover:shadow-[0_26px_55px_-32px_rgba(34,30,23,0.45)] ${
+        compact ? "flex items-stretch gap-0" : "flex flex-col"
+      }`}
     >
       {/* Fixed 16:9 window with object-cover, so a 4:3 fallback thumbnail
           crops instead of showing YouTube's black letterbox bars. */}
-      <span className="relative block aspect-video overflow-hidden bg-ink/90">
+      <span
+        className={`relative block aspect-video shrink-0 overflow-hidden bg-ink/90 ${
+          compact ? "w-[38%] max-w-[190px] sm:w-[34%]" : ""
+        }`}
+      >
         <Image
           src={message.thumbnail}
           alt=""
@@ -40,13 +60,19 @@ export function MessageCard({
           sizes={
             featured
               ? "(max-width: 1024px) 100vw, 60vw"
-              : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              : compact
+                ? "190px"
+                : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           }
           className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
         />
-        <PlayBadge />
+        <PlayBadge small={compact} />
       </span>
-      <span className="flex flex-1 flex-col p-6">
+      <span
+        className={`flex flex-1 flex-col justify-center ${
+          compact ? "px-5 py-4" : "p-6"
+        }`}
+      >
         {message.serviceDate && (
           <span className="caps text-[0.6rem] font-semibold text-text-muted">
             {message.serviceDate}
@@ -54,20 +80,28 @@ export function MessageCard({
         )}
         <span
           className={`display mt-2 leading-tight text-ink ${
-            featured ? "text-[1.85rem]" : "text-[1.35rem]"
+            featured
+              ? "text-[1.85rem]"
+              : compact
+                ? "text-[1.08rem]"
+                : "text-[1.35rem]"
           }`}
         >
           {message.title}
         </span>
         {message.speaker && (
-          <span className="mt-3 text-[0.85rem] text-text-light">
+          <span
+            className={`text-[0.85rem] text-text-light ${compact ? "mt-1.5" : "mt-3"}`}
+          >
             {message.speaker}
           </span>
         )}
-        <span
-          aria-hidden="true"
-          className="mt-5 h-px w-8 bg-gold/50 transition-all duration-300 group-hover:w-16"
-        />
+        {!compact && (
+          <span
+            aria-hidden="true"
+            className="mt-5 h-px w-8 bg-gold/50 transition-all duration-300 group-hover:w-16"
+          />
+        )}
       </span>
     </a>
   );
@@ -146,11 +180,11 @@ export function LatestMessages({ messages }: { messages: MessageItem[] }) {
           </Link>
         </div>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1.35fr_1fr]">
+        <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1.35fr_1fr]">
           <MessageCard message={featured} featured />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
+          <div className="grid gap-4">
             {rest.slice(0, 3).map((message) => (
-              <MessageCard key={message.id} message={message} />
+              <MessageCard key={message.id} message={message} compact />
             ))}
           </div>
         </div>
