@@ -1,18 +1,100 @@
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/lib/site";
 
+/**
+ * The hero plays the church's own footage of Pastor Harvey preaching, silently,
+ * behind the copy.
+ *
+ * The clip is a stable 18s of the wide shot (the original pushes in past ~20s,
+ * which read as a jump on every loop) cropped so he sits right of centre —
+ * uncropped he stands dead centre and the copy had nowhere to go. The wash over
+ * him is *cream*, not the usual dark scrim: their sanctuary is honey oak and
+ * pale stone, the site is light, and a dark hero would have fought both.
+ *
+ * The video is decorative. It is muted, has no audio track at all, is hidden
+ * from assistive tech, and the poster frame stands in whenever it cannot or
+ * should not play — reduced motion, a refused autoplay, or a slow first paint.
+ *
+ * It is only mounted on wide viewports with motion allowed, which is a data
+ * decision as much as a design one: `object-cover` in a phone-shaped box zooms
+ * a 16:9 clip to a chest-height close-up, and the body copy lost contrast
+ * against his suit. Gating the mount rather than hiding it with CSS means a
+ * phone never downloads the 1.7MB at all.
+ */
 export default function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [showVideo, setShowVideo] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia(
+      "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
+    );
+    const apply = () => setShowVideo(query.matches);
+    apply();
+    query.addEventListener("change", apply);
+    return () => query.removeEventListener("change", apply);
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    // Safari needs these set as properties, not just attributes, or it treats
+    // the clip as user-initiated media and blocks it.
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    void video.play().catch(() => {});
+  }, [showVideo]);
+
   return (
-    <section className="paper relative overflow-hidden">
-      {/* a very faint gold horizon, no texture noise */}
+    <section className="relative isolate flex min-h-[86svh] flex-col overflow-hidden bg-cream">
+      {/* Stands in for the video: reduced motion, refused autoplay, first paint. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-gold-pale/35 to-transparent"
+        className="absolute inset-0 -z-20 bg-[url('/video/hero-poster.jpg')] bg-cover bg-[position:64%_center]"
       />
 
-      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 pb-16 pt-14 lg:grid-cols-[1.02fr_1fr] lg:gap-16 lg:px-10 lg:pb-24 lg:pt-20">
-        <div>
+      {showVideo && (
+        <video
+          ref={videoRef}
+          className="hero-video absolute inset-0 -z-10 size-full object-cover object-[64%_center]"
+          poster="/video/hero-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          disablePictureInPicture
+          controls={false}
+          aria-hidden="true"
+          tabIndex={-1}
+        >
+          <source src="/video/hero.mp4" type="video/mp4" />
+        </video>
+      )}
+
+      {/* Cream wash: near-opaque under the words, clearing to the right so he
+          stays visible. Kept light on purpose — this is a light site. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(251,247,238,0.94)_0%,rgba(251,247,238,0.97)_100%)] lg:bg-[linear-gradient(100deg,rgba(251,247,238,0.97)_0%,rgba(251,247,238,0.94)_33%,rgba(251,247,238,0.72)_50%,rgba(251,247,238,0.30)_74%,rgba(251,247,238,0.12)_100%)]"
+      />
+      {/* Blends the footage down into the section that follows. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(251,247,238,0.98)_0%,rgba(251,247,238,0.45)_18%,rgba(251,247,238,0)_46%)]"
+      />
+      {/* The same faint gold horizon the hero had before the video. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 bg-gradient-to-b from-gold-pale/45 to-transparent"
+      />
+
+      <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-16 pt-14 lg:px-10 lg:pb-24 lg:pt-20">
+        <div className="max-w-2xl">
           <p className="eyebrow animate-fade-up">
             {site.address.city}, {site.address.regionName}
             <span className="mx-2.5 text-gold/50">&#9670;</span>
@@ -63,7 +145,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/sermons"
-              className="focus-ring caps inline-flex items-center gap-2.5 rounded-sm border border-linen-dark bg-cream/70 px-6 py-4 text-[0.7rem] font-semibold text-ink-soft transition hover:border-gold hover:text-oak-dark"
+              className="focus-ring caps inline-flex items-center gap-2.5 rounded-sm border border-linen-dark bg-cream/80 px-6 py-4 text-[0.7rem] font-semibold text-ink-soft backdrop-blur-[2px] transition hover:border-gold hover:text-oak-dark"
             >
               Hear a Sermon
             </Link>
@@ -85,37 +167,6 @@ export default function Hero() {
             ))}
           </dl>
         </div>
-
-        {/* Their own auditorium, uncropped — a copy panel beside a real photo
-            beats a scrim over one. */}
-        <figure className="animate-fade-up delay-2">
-          {/* The offset gold frame tracks the photo only, not the caption. */}
-          <div className="relative">
-            <div className="relative overflow-hidden rounded-sm border border-linen-dark bg-linen shadow-[0_30px_70px_-25px_rgba(34,30,23,0.35)]">
-              <Image
-                src="/csbc/sanctuary-wide.jpg"
-                alt="The auditorium at Countryside Baptist Church during a Sunday service — honey-oak pews and pulpit, a stacked-stone wall behind the platform, and the American and Christian flags on either side."
-                width={1280}
-                height={720}
-                priority
-                sizes="(max-width: 1024px) 100vw, 48vw"
-                className="h-auto w-full"
-              />
-            </div>
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-3 -right-3 -z-10 h-full w-full rounded-sm border border-gold/35"
-            />
-          </div>
-          <figcaption className="mt-5 flex items-start gap-3 text-[0.78rem] leading-relaxed text-text-muted">
-            <span
-              aria-hidden="true"
-              className="mt-1.5 h-px w-6 shrink-0 bg-gold/60"
-            />
-            The auditorium on a Sunday morning. {site.address.street},{" "}
-            {site.address.city}.
-          </figcaption>
-        </figure>
       </div>
     </section>
   );

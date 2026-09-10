@@ -127,6 +127,15 @@
     text-transform: uppercase;
   }
 
+  /* The hero's background clip. Decorative, so it yields entirely to a
+     reduced-motion preference and the poster frame takes over. */
+  .hero-video::-webkit-media-controls,
+  .hero-video::-webkit-media-controls-panel,
+  .hero-video::-webkit-media-controls-play-button,
+  .hero-video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+  }
+
   /* A hairline gold rule with a diamond at its centre — the recurring divider. */
   .rule-diamond {
     display: flex;
@@ -229,5 +238,11 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
   }
 }

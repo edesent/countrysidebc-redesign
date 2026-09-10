@@ -142,6 +142,14 @@ imagery, and no stock. Sources:
 
 If a new photo is needed, get it from the church. Do not generate one.
 
+The hero's background clip (`public/video/hero.mp4`) is the church's own footage
+of Pastor Harvey preaching, supplied by Eli. It is **silent — there is no audio
+track in the file at all** — trimmed to a stable 18s (the source pushes in past
+~20s, which read as a jump on every loop) and cropped so he sits right of centre,
+because uncropped he stands dead centre and the copy had nowhere to go. It is
+mounted only at `lg` and above with motion allowed, so a phone never downloads
+it; `hero-poster.jpg` stands in everywhere else.
+
 ### Facts to confirm with the church
 
 - The welcome quotation attributed to Pastor Harvey in `site.ts`
