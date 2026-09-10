@@ -1,24 +1,8 @@
 /**
- * The church's own logo.
- *
- * `Logo` is their real mark — the script "Countryside" over a line-drawn open
- * Bible with "BAPTIST CHURCH" in caps beneath. The church has no vector copy of
- * it; the largest raster that exists anywhere is the 326x175 PNG kept beside
- * these files as `public/csbc/wordmark-source.png`. That PNG was colour-separated
- * (gold line art vs. lettering) and traced to vector, so the lockup is now sharp
- * at any size instead of topping out at 326px. Two colourways are checked in:
- *
- *   wordmark-ink.svg    ink #221e17 + gold #bc8f2f  — for cream bands
- *   wordmark-cream.svg  cream #fbf7ee + gold #ffd479 — for ink bands
- *
- * The cream one is the church's own footer artwork, not a recolour we invented.
- * To regenerate either file, re-trace from `wordmark-source.png`; do not redraw
- * the lettering by hand and do not substitute a script font for it.
- *
- * `BibleMark` below is a *separate*, simplified redraw of just the open-Bible
- * outline. It is decorative only — the oversized watermark behind the scripture
- * banner — and is deliberately cleaner than the real line art, which is too
- * fine to read at that scale. It is not the logo; do not swap it in for one.
+ * The original church lettering, re-traced from wordmark-source.png, with
+ * smooth Bible contours following the source artwork. Both colourways share
+ * identical geometry. Do not replace the lettering with a script font.
+ * BibleMark is a separate decorative watermark, not the church logo.
  */
 
 export function BibleMark({ className = "" }: { className?: string }) {
@@ -92,7 +76,7 @@ const WORDMARK = {
 } as const;
 
 /** Intrinsic size of the traced artwork, cropped to the ink. */
-const WORDMARK_SIZE = { width: 326, height: 92 };
+const WORDMARK_SIZE = { width: 332, height: 97 };
 
 export default function Logo({
   tone = "ink",
@@ -101,14 +85,14 @@ export default function Logo({
 }: LogoProps) {
   return (
     // A two-colour SVG lockup: nothing for the image optimiser to do, and
-    // inlining ~100KB of traced path data into every page would be worse.
+    // inlining the traced path data into every page would be worse.
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={WORDMARK[tone]}
       alt={alt}
       width={WORDMARK_SIZE.width}
       height={WORDMARK_SIZE.height}
-      className={`block h-auto ${className}`}
+      className={`block h-auto max-w-full ${className}`}
     />
   );
 }

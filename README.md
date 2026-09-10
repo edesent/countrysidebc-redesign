@@ -100,26 +100,25 @@ an unlayered `.display { color: … }` would override every `text-*` utility.
 
 The church has no vector copy. The largest raster in existence anywhere — their
 own WordPress media library tops out here — is a 326x175 PNG, checked in as
-`public/csbc/wordmark-source.png`. That file was colour-separated (the gold line
-art vs. the lettering) and traced to vector, so the lockup is now sharp at any
-size. Two colourways are checked in and are the only two you should need:
+`public/csbc/wordmark-source.png`. The lettering was colour-separated and re-traced with smoothed contours.
+The Bible outline follows the source as continuous curves, removing the broken
+white highlights in the earlier automatic trace. Both variants share geometry. Two colourways are checked in and are the only two you should need:
 
 | File | Colours | Use on |
 | --- | --- | --- |
-| `public/csbc/wordmark-ink.svg` | ink `#221e17` + gold `#bc8f2f` | cream bands (navbar) |
+| `public/csbc/wordmark-ink.svg` | ink `#221e17` + gold `#a77a24` | cream bands (navbar) |
 | `public/csbc/wordmark-cream.svg` | cream `#fbf7ee` + gold `#ffd479` | ink bands (footer) |
 
 The cream version is the church's **own** footer artwork — white lettering over
 the gold Bible — so it is their variant, not a recolour we invented. The gold is
-darkened to `#bc8f2f` on cream purely for contrast.
+darkened to `#a77a24` on cream purely for contrast.
 
 Rules:
 
 - **Do not substitute a script font for the lettering.** It is engraved English
   script that no webfont in the stack matches. Re-trace from
   `wordmark-source.png` if either SVG ever needs regenerating.
-- The traced artwork is cropped to the ink (`viewBox="0 41 326 92"`, a 3.54:1
-  lockup). The source PNG has ~41px of dead padding above and below the mark;
+- The traced artwork is cropped to the ink (`viewBox="-2 39 332 97"`, with a little clearance for the strokes). The source PNG has ~41px of dead padding above and below the mark;
   keeping it would force the navbar half again as tall.
 - Size the logo by **width** only — `Logo` sets `h-auto`. It no longer responds
   to font-size the way the old type-set version did.

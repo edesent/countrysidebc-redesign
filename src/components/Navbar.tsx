@@ -69,13 +69,13 @@ export default function Navbar() {
             : "border-transparent bg-cream"
         }`}
       >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3 lg:px-10">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:px-10 lg:py-5">
           <Link
             href="/"
             className="focus-ring shrink-0 py-1"
             aria-label="Countryside Baptist Church — home"
           >
-            <Logo alt="" className="w-[9.5rem] sm:w-[11rem]" />
+            <Logo alt="" className="w-[11rem] sm:w-[12.5rem]" />
           </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
