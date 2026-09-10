@@ -106,7 +106,7 @@
   /* Small letterspaced Cinzel label above a section heading. */
   .eyebrow {
     font-family: var(--font-caps);
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.26em;
     text-transform: uppercase;
