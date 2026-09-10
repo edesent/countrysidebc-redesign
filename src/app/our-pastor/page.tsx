@@ -54,15 +54,16 @@ export default function OurPastorPage() {
           <div className="mx-auto max-w-6xl px-6 lg:px-10">
             <div className="grid gap-14 lg:grid-cols-[0.85fr_1fr] lg:gap-20">
               <div className="lg:sticky lg:top-32 lg:self-start">
-                <figure>
+                <figure className="mx-auto w-full max-w-[480px] lg:mx-0">
                   <div className="overflow-hidden rounded-sm border border-linen-dark shadow-[0_30px_65px_-32px_rgba(34,30,23,0.45)]">
                     <Image
                       src={pastor.familyPhoto}
                       alt={`Pastor Paul Harvey and his wife ${pastor.wife} standing together outdoors.`}
                       width={1200}
                       height={1800}
-                      priority
-                      sizes="(max-width: 1024px) 90vw, 36vw"
+                      preload
+                      quality={90}
+                      sizes="(max-width: 528px) calc(100vw - 48px), (max-width: 1023px) 480px, (max-width: 1152px) calc((100vw - 160px) * 0.4595), 456px"
                       className="h-auto w-full"
                     />
                   </div>

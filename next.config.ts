@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 const nextConfig: NextConfig = {
   outputFileTracingRoot: fileURLToPath(new URL(".", import.meta.url)),
   images: {
+    qualities: [75, 90],
     remotePatterns: [
       // Sermon thumbnails come straight from the church's YouTube channel.
       // The feed hands back whichever shard it likes (i.ytimg, i2.ytimg, …),

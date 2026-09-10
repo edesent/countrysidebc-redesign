@@ -13,7 +13,8 @@ export default function WelcomePastor() {
               alt={`Pastor ${pastor.name} of Countryside Baptist Church, standing outdoors in a dark suit and flag-patterned tie.`}
               width={673}
               height={1350}
-              sizes="(max-width: 1024px) 80vw, 30vw"
+              quality={90}
+              sizes="(max-width: 432px) calc(100vw - 48px), 384px"
               className="h-auto w-full"
             />
           </div>
