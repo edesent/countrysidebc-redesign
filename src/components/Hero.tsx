@@ -12,7 +12,10 @@ import { site } from "@/lib/site";
  * which read as a jump on every loop) cropped so he sits right of centre —
  * uncropped he stands dead centre and the copy had nowhere to go. The wash over
  * him is *cream*, not the usual dark scrim: their sanctuary is honey oak and
- * pale stone, the site is light, and a dark hero would have fought both.
+ * pale stone, the site is light, and a dark hero would have fought both. The
+ * wash protects the copy column and then falls away fast — carried across the
+ * full width it read as washed out, and the footage is graded warmer now so it
+ * does not need the help.
  *
  * The video is decorative. It is muted, has no audio track at all, is hidden
  * from assistive tech, and the poster frame stands in whenever it cannot or
@@ -80,17 +83,17 @@ export default function Hero() {
           stays visible. Kept light on purpose — this is a light site. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(251,247,238,0.94)_0%,rgba(251,247,238,0.97)_100%)] lg:bg-[linear-gradient(100deg,rgba(251,247,238,0.97)_0%,rgba(251,247,238,0.94)_33%,rgba(251,247,238,0.72)_50%,rgba(251,247,238,0.30)_74%,rgba(251,247,238,0.12)_100%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(251,247,238,0.90)_0%,rgba(251,247,238,0.94)_100%)] lg:bg-[linear-gradient(100deg,rgba(251,247,238,0.95)_0%,rgba(251,247,238,0.92)_30%,rgba(251,247,238,0.84)_44%,rgba(251,247,238,0.34)_60%,rgba(251,247,238,0.06)_74%,rgba(251,247,238,0)_100%)]"
       />
       {/* Blends the footage down into the section that follows. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(251,247,238,0.98)_0%,rgba(251,247,238,0.45)_18%,rgba(251,247,238,0)_46%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(251,247,238,0.95)_0%,rgba(251,247,238,0.30)_14%,rgba(251,247,238,0)_36%)]"
       />
       {/* The same faint gold horizon the hero had before the video. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 bg-gradient-to-b from-gold-pale/45 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-64 bg-gradient-to-b from-gold-pale/25 to-transparent"
       />
 
       <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-16 pt-14 lg:px-10 lg:pb-24 lg:pt-20">
