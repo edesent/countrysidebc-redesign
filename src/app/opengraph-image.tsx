@@ -15,7 +15,7 @@ function Diamond() {
         display: "flex",
         width: 7,
         height: 7,
-        background: "#bc8f2f",
+        background: "#9e7211",
         transform: "rotate(45deg)",
       }}
     />
@@ -23,12 +23,13 @@ function Diamond() {
 }
 
 export default async function OpenGraphImage() {
-  // Satori ships no serif, so the display face is handed to it directly.
-  // It reads ttf/otf/woff — not woff2 — hence the decompressed copies here.
+  // Satori ships neither face, so both are handed to it directly. It reads
+  // ttf/otf/woff — not woff2 — hence the static copies here; cinzel-bold.ttf is
+  // the variable Cinzel pinned at wght 700, which Satori cannot do itself.
   const fontDir = join(process.cwd(), "src", "og-fonts");
-  const [roman, italic] = await Promise.all([
-    readFile(join(fontDir, "ebgaramond.ttf")),
-    readFile(join(fontDir, "ebgaramond-italic.ttf")),
+  const [cinzel, poppins] = await Promise.all([
+    readFile(join(fontDir, "cinzel-bold.ttf")),
+    readFile(join(fontDir, "poppins-regular.ttf")),
   ]);
 
   return new ImageResponse(
@@ -41,9 +42,9 @@ export default async function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 76px",
-          background: "#221e17",
-          color: "#fbf7ee",
-          fontFamily: "EB Garamond",
+          background: "#2b3422",
+          color: "#fffbf6",
+          fontFamily: "Cinzel",
           position: "relative",
         }}
       >
@@ -56,7 +57,7 @@ export default async function OpenGraphImage() {
             width: 900,
             height: 700,
             background:
-              "radial-gradient(circle, rgba(188,143,47,0.42) 0%, rgba(34,30,23,0) 70%)",
+              "radial-gradient(circle, rgba(158,114,17,0.40) 0%, rgba(43,52,34,0) 70%)",
             display: "flex",
           }}
         />
@@ -68,7 +69,7 @@ export default async function OpenGraphImage() {
               fontSize: 26,
               letterSpacing: 7,
               textTransform: "uppercase",
-              color: "#ffd479",
+              color: "#fcd68a",
             }}
           >
             Countryside Baptist Church
@@ -81,7 +82,7 @@ export default async function OpenGraphImage() {
               fontSize: 22,
               letterSpacing: 4,
               textTransform: "uppercase",
-              color: "rgba(251,247,238,0.55)",
+              color: "rgba(255,251,246,0.58)",
             }}
           >
             <div style={{ display: "flex" }}>
@@ -95,9 +96,8 @@ export default async function OpenGraphImage() {
         <div
           style={{
             display: "flex",
-            fontSize: 96,
-            fontStyle: "italic",
-            lineHeight: 1.05,
+            fontSize: 68,
+                        lineHeight: 1.05,
             maxWidth: 720,
           }}
         >
@@ -109,11 +109,11 @@ export default async function OpenGraphImage() {
             display: "flex",
             alignItems: "center",
             gap: 26,
-            fontSize: 25,
-            color: "rgba(251,247,238,0.72)",
+            fontSize: 20,
+            color: "rgba(255,251,246,0.74)",
           }}
         >
-          <div style={{ display: "flex", width: 76, height: 3, background: "#bc8f2f" }} />
+          <div style={{ display: "flex", width: 76, height: 3, background: "#9e7211" }} />
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <div style={{ display: "flex" }}>Sunday School 10:00</div>
             <Diamond />
@@ -130,16 +130,16 @@ export default async function OpenGraphImage() {
       ...size,
       fonts: [
         {
-          name: "EB Garamond",
-          data: roman,
-          weight: 400,
+          name: "Cinzel",
+          data: cinzel,
+          weight: 700,
           style: "normal",
         },
         {
-          name: "EB Garamond",
-          data: italic,
+          name: "Poppins",
+          data: poppins,
           weight: 400,
-          style: "italic",
+          style: "normal",
         },
       ],
     },
