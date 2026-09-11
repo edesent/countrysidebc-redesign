@@ -11,8 +11,8 @@ export default function WelcomePastor() {
             <Image
               src={pastor.photo}
               alt={`Pastor ${pastor.name} of Countryside Baptist Church, standing outdoors in a dark suit and flag-patterned tie.`}
-              width={673}
-              height={1350}
+              width={1024}
+              height={1536}
               quality={90}
               sizes="(max-width: 432px) calc(100vw - 48px), 384px"
               className="h-auto w-full"

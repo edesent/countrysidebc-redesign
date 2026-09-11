@@ -17,6 +17,8 @@ export const CHAT = {
   origin: "https://slackwebsitechat.vercel.app",
   apiKey: "wbc_455ae07359f0b4b5ff0df2453445c8c57cfeda67166695fc",
   accentColor: "#7c5218",
+  /** Pastor Harvey, already circle-cropped, so visitors see a person. */
+  agentIcon: "/csbc/pastor-harvey-face.jpg",
   greeting:
     "Hello — thanks for stopping by Countryside Baptist. Ask us anything about the church, our service times, or planning a first visit, and we will get right back to you.",
 } as const;

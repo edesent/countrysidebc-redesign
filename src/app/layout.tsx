@@ -85,6 +85,7 @@ export default function RootLayout({
           src={`${CHAT.origin}/widget/wbc-chat.js`}
           data-api={CHAT.origin}
           data-key={CHAT.apiKey}
+          data-agent-icon-url={CHAT.agentIcon}
           data-accent-color={CHAT.accentColor}
           data-greeting={CHAT.greeting}
           defer
