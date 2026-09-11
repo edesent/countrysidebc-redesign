@@ -79,7 +79,7 @@ export default function Footer() {
 
           {columns.map((column) => (
             <div key={column.heading}>
-              <h2 className="caps text-[0.66rem] font-semibold text-gold-light/80">
+              <h2 className="caps text-[0.78rem] font-semibold text-gold-light/85">
                 {column.heading}
               </h2>
               <ul className="mt-5 space-y-3">
@@ -98,7 +98,7 @@ export default function Footer() {
           ))}
 
           <div>
-            <h2 className="caps text-[0.66rem] font-semibold text-gold-light/80">
+            <h2 className="caps text-[0.78rem] font-semibold text-gold-light/85">
               Find Us
             </h2>
             <address className="mt-5 not-italic text-sm leading-relaxed text-cream/70">
