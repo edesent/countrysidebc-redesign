@@ -120,7 +120,7 @@ export default function OurPastorPage() {
                   </p>
                 </div>
 
-                <h2 className="display mt-14 text-[clamp(1.7rem,3.2vw,2.3rem)] text-ink">
+                <h2 className="display mt-14 text-[clamp(1.29rem,2.43vw,1.75rem)] text-ink">
                   Education
                 </h2>
                 <ul className="mt-7 space-y-px overflow-hidden rounded-sm border border-linen-dark bg-linen-dark">
@@ -137,7 +137,7 @@ export default function OurPastorPage() {
                   ))}
                 </ul>
 
-                <h2 className="display mt-14 text-[clamp(1.7rem,3.2vw,2.3rem)] text-ink">
+                <h2 className="display mt-14 text-[clamp(1.29rem,2.43vw,1.75rem)] text-ink">
                   Thirty years of service
                 </h2>
                 <ol className="mt-8 space-y-8 border-l border-linen pl-7">
@@ -164,7 +164,7 @@ export default function OurPastorPage() {
                 </ol>
 
                 <div className="mt-14 rounded-sm border border-linen-dark bg-parchment p-8 sm:p-10">
-                  <h2 className="display text-[clamp(1.6rem,3vw,2.1rem)] text-ink">
+                  <h2 className="display text-[clamp(1.22rem,2.28vw,1.60rem)] text-ink">
                     He would be glad to hear from you.
                   </h2>
                   <p className="mt-4 leading-relaxed text-text-light">

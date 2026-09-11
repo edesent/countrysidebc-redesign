@@ -59,7 +59,7 @@ export default function PageHero({
         )}
 
         <p className="eyebrow text-gold-light/85">{eyebrow}</p>
-        <h1 className="display mt-4 max-w-4xl text-[clamp(2.4rem,5.6vw,4.1rem)] text-cream">
+        <h1 className="display mt-4 max-w-4xl text-[clamp(1.82rem,4.26vw,3.12rem)] text-cream">
           {title}
         </h1>
         <div

@@ -7,7 +7,7 @@ export default function Mission() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="mx-auto max-w-3xl text-center">
           <p className="eyebrow">Our mission</p>
-          <p className="display mt-6 text-[clamp(1.45rem,2.9vw,2.1rem)] leading-[1.34] text-ink">
+          <p className="mt-6 text-[clamp(1.12rem,2.2vw,1.6rem)] leading-[1.55] text-ink">
             {missionStatement}
           </p>
           <p className="ref mx-auto mt-6 max-w-xl">({missionRefs})</p>
@@ -29,7 +29,7 @@ export default function Mission() {
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-gold via-gold-light to-transparent"
               />
-              <h3 className="display text-[clamp(2rem,3.4vw,2.6rem)] italic text-oak-dark">
+              <h3 className="display text-[clamp(1.14rem,1.98vw,1.52rem)] text-oak-dark">
                 {pillar.word}
               </h3>
               <p className="ref mt-2">{pillar.verse}</p>

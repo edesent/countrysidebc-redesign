@@ -33,7 +33,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr_1fr_1.1fr]">
           <div>
             <Logo tone="cream" className="w-[15rem] max-w-full" />
-            <p className="display mt-6 text-xl italic text-gold-light/90">
+            <p className="display mt-6 text-lg text-gold-light/90">
               {site.tagline}
             </p>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/65">

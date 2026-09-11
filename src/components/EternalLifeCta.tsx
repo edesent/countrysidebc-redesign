@@ -19,9 +19,9 @@ export default function EternalLifeCta() {
           />
           <div className="relative">
             <p className="eyebrow">The most important page on this site</p>
-            <h2 className="display mx-auto mt-6 max-w-3xl text-[clamp(2.2rem,4.8vw,3.6rem)] text-ink">
+            <h2 className="display mx-auto mt-6 max-w-3xl text-[clamp(1.67rem,3.65vw,2.74rem)] text-ink">
               How to have eternal life &mdash;{" "}
-              <span className="italic text-oak-dark">guaranteed</span>.
+              <span className="text-gold">guaranteed</span>.
             </h2>
             <p className="mx-auto mt-7 max-w-2xl leading-relaxed text-text-light">
               Not a program, not a membership, and not something you have to earn.

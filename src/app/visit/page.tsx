@@ -84,7 +84,7 @@ export default function VisitPage() {
             <div className="grid gap-14 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
               <div>
                 <p className="eyebrow">Four steps, and none of them hard</p>
-                <h2 className="display mt-4 text-[clamp(2rem,4vw,2.9rem)] text-ink">
+                <h2 className="display mt-4 text-[clamp(1.52rem,3.04vw,2.20rem)] text-ink">
                   Your first Sunday, start to finish.
                 </h2>
                 <ol className="mt-10 space-y-8 border-l border-linen pl-7">

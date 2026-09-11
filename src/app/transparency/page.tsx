@@ -85,7 +85,7 @@ export default function TransparencyPage() {
               </p>
             </div>
 
-            <h2 className="display mt-14 text-[clamp(1.75rem,3.4vw,2.4rem)] text-ink">
+            <h2 className="display mt-14 text-[clamp(1.33rem,2.58vw,1.82rem)] text-ink">
               Official nonprofit registration
               <span className="block text-text-muted">(State of Ohio)</span>
             </h2>
@@ -99,7 +99,7 @@ export default function TransparencyPage() {
               corporate privileges and remains in good standing.
             </p>
 
-            <h2 className="display mt-14 text-[clamp(1.75rem,3.4vw,2.4rem)] text-ink">
+            <h2 className="display mt-14 text-[clamp(1.33rem,2.58vw,1.82rem)] text-ink">
               Federal nonprofit identification
             </h2>
             <div className="mt-8">

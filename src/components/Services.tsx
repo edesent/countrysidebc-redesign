@@ -7,7 +7,7 @@ export default function Services() {
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="max-w-2xl">
           <p className="eyebrow">When we gather</p>
-          <h2 className="display mt-4 text-[clamp(2.1rem,4.4vw,3.3rem)] text-ink">
+          <h2 className="display mt-4 text-[clamp(1.60rem,3.34vw,2.51rem)] text-ink">
             Four services a week, and none of them require an invitation.
           </h2>
           <p className="mt-6 leading-relaxed text-text-light">
@@ -23,7 +23,7 @@ export default function Services() {
               key={service.title}
               className="group flex flex-col bg-cream p-7 transition-colors hover:bg-parchment lg:p-8"
             >
-              <span className="display text-[0.95rem] italic text-gold">
+              <span className="display text-[0.95rem] text-gold">
                 {String(index + 1).padStart(2, "0")}
               </span>
               <p className="caps mt-5 text-[0.6rem] font-semibold text-text-muted">
@@ -32,7 +32,7 @@ export default function Services() {
               <h3 className="display mt-2 text-[1.42rem] leading-tight text-ink">
                 {service.title}
               </h3>
-              <p className="display mt-3 text-2xl italic text-oak-dark">
+              <p className="display mt-3 text-xl text-oak-dark">
                 {service.time}
               </p>
               <span

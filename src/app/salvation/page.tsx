@@ -56,7 +56,7 @@ export default function SalvationPage() {
                 <ol className="mt-5 space-y-3">
                   {tractSections.map((section, index) => (
                     <li key={section.id} className="flex gap-3">
-                      <span className="display shrink-0 text-[0.8rem] italic text-gold">
+                      <span className="display shrink-0 text-[0.8rem] text-gold">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <a
@@ -81,10 +81,10 @@ export default function SalvationPage() {
                         : "mt-16 scroll-mt-32 border-t border-linen pt-16"
                     }
                   >
-                    <p className="display text-[0.95rem] italic text-gold">
+                    <p className="display text-[0.95rem] text-gold">
                       {String(index + 1).padStart(2, "0")}
                     </p>
-                    <h2 className="display mt-3 text-[clamp(1.85rem,3.6vw,2.6rem)] leading-tight text-ink">
+                    <h2 className="display mt-3 text-[clamp(1.41rem,2.74vw,1.98rem)] leading-tight text-ink">
                       {section.heading}
                     </h2>
                     <div className="mt-8">
@@ -94,7 +94,7 @@ export default function SalvationPage() {
                 ))}
 
                 <div className="mt-16 rounded-sm border border-gold/40 bg-cream p-8 sm:p-10">
-                  <h2 className="display text-[clamp(1.7rem,3.2vw,2.3rem)] text-ink">
+                  <h2 className="display text-[clamp(1.29rem,2.43vw,1.75rem)] text-ink">
                     If you made that decision today, we would love to hear it.
                   </h2>
                   <p className="mt-5 leading-relaxed text-text-light">

@@ -1,68 +1,92 @@
 @import "tailwindcss";
 
 /* ── Self-hosted fonts (next/font/google can fail the Vercel build) ────────── */
+
+/* Cinzel carries the headings and the small-caps labels — the brand guide puts
+   it on the logo, headings and titles, and bars it from body text. It is a
+   variable face (400-900); headings ask for 700. Its "lowercase" is small
+   capitals, which is why every heading here is set smaller and tighter than the
+   Garamond it replaced: the same string occupies far more width in caps. */
 @font-face {
   font-family: "Cinzel";
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 400 900;
   font-display: swap;
   src: url("/fonts/cinzel.woff2") format("woff2");
 }
+
+/* The guide names Century Gothic for body text. It is a licensed Monotype face
+   and cannot be embedded on a website, so this is Poppins — the closest freely
+   licensable geometric sans: same single-storey 'a', same round bowls and tall
+   x-height. If the church ever buys a Century Gothic web licence, swapping
+   these three files and this family name is the whole change. */
 @font-face {
-  font-family: "EB Garamond";
+  font-family: "Poppins";
   font-style: normal;
-  font-weight: 400 800;
+  font-weight: 400;
   font-display: swap;
-  src: url("/fonts/ebgaramond.woff2") format("woff2");
-}
-/* The italic is a separate face. Without it the browser synthesises a slant,
-   and — worse — a roman-less family makes every heading italic by default,
-   which kills the emphasis italics used on "used to be", service times and
-   section numerals. */
-@font-face {
-  font-family: "EB Garamond";
-  font-style: italic;
-  font-weight: 400 800;
-  font-display: swap;
-  src: url("/fonts/ebgaramond-italic.woff2") format("woff2");
+  src: url("/fonts/poppins-400.woff2") format("woff2");
 }
 @font-face {
-  font-family: "Inter";
+  font-family: "Poppins";
   font-style: normal;
-  font-weight: 300 800;
+  font-weight: 600;
   font-display: swap;
-  src: url("/fonts/inter.woff2") format("woff2");
+  src: url("/fonts/poppins-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/poppins-700.woff2") format("woff2");
 }
 
 @theme {
-  /* Palette drawn entirely from the church's own material:
-     — oak / honey:   the pulpit, pews and wainscot in their sanctuary
-     — stone:         the stacked-stone wall behind the pulpit
-     — cream / linen: their sanctuary walls and panel molding
-     — gold:          the open-Bible line in their own logo (#FFD479)
-     — claret:        the flower arrangement and pew hymnals            */
-  --color-ink: #221e17;
-  --color-ink-soft: #3b3428;
-  --color-oak: #a8712b;
-  --color-oak-light: #c99551;
-  --color-oak-dark: #7c5218;
-  --color-gold: #bc8f2f;
-  --color-gold-light: #ffd479;
-  --color-gold-pale: #f4e3bd;
-  --color-cream: #fbf7ee;
-  --color-parchment: #f4eee2;
-  --color-linen: #e9e1d1;
-  --color-linen-dark: #d8cdb8;
-  --color-stone: #6d6559;
-  --color-stone-cool: #4c5760;
+  /* The church's 2026 brand guide palette. Five colours:
+       OLIVE TREE #747A3A · SOFT GOLD #FCD68A · EARTH #9E7211
+       OFF-WHITE #FFFBF6 · CHARCOAL #2B3422
+
+     The token NAMES below are inherited from the pre-brand-guide build and are
+     kept because ~600 class names reference them. Read them as brand roles:
+
+       ink / ink-soft ....... CHARCOAL and a lighter charcoal
+       cream ................ OFF-WHITE (the page ground)
+       gold ................. EARTH — the readable gold, for text and rules
+       gold-light ........... SOFT GOLD — decorative only; too pale for text
+       oak / oak-dark ....... OLIVE TREE and a deeper olive
+       linen / parchment .... tints of off-white for panels and borders
+
+     Correctly-named aliases are defined underneath for new work. */
+  --color-ink: #2b3422;
+  --color-ink-soft: #3e4832;
+  --color-oak: #747a3a;
+  --color-oak-light: #8d9450;
+  --color-oak-dark: #5c6130;
+  --color-gold: #9e7211;
+  --color-gold-light: #fcd68a;
+  --color-gold-pale: #fbeac2;
+  --color-cream: #fffbf6;
+  --color-parchment: #f7f1e6;
+  --color-linen: #ece5d6;
+  --color-linen-dark: #dbd3c0;
+  --color-stone: #6a6a56;
+  --color-stone-cool: #4f5a4a;
   --color-claret: #8c2733;
   --color-claret-dark: #6b1c26;
-  --color-text-body: #3d372e;
-  --color-text-light: #6b6459;
-  --color-text-muted: #8f877a;
+  --color-text-body: #3a4231;
+  --color-text-light: #5f6653;
+  --color-text-muted: #878d76;
 
-  --font-sans: "Inter", -apple-system, "Segoe UI", Arial, sans-serif;
-  --font-display: "EB Garamond", Georgia, "Times New Roman", serif;
+  /* The brand guide's own names — prefer these going forward. */
+  --color-olive: #747a3a;
+  --color-soft-gold: #fcd68a;
+  --color-earth: #9e7211;
+  --color-off-white: #fffbf6;
+  --color-charcoal: #2b3422;
+
+  --font-sans: "Poppins", "Century Gothic", "Questrial", -apple-system, sans-serif;
+  --font-display: "Cinzel", Georgia, serif;
   --font-caps: "Cinzel", Georgia, serif;
 }
 
@@ -93,7 +117,7 @@
   }
 
   ::selection {
-    background: rgba(188, 143, 47, 0.28);
+    background: rgba(252, 214, 138, 0.55);
     color: var(--color-ink);
   }
 }
@@ -110,15 +134,26 @@
     font-weight: 600;
     letter-spacing: 0.26em;
     text-transform: uppercase;
-    color: var(--color-oak);
+    color: var(--color-gold);
   }
 
-  /* The display face. Never sets its own color — let text-* utilities decide. */
+  /* The display face. Never sets its own color — let text-* utilities decide.
+     Cinzel Bold per the brand guide. Its lowercase is small capitals, so this
+     runs tighter and with a little more leading than a lowercase face would. */
   .display {
     font-family: var(--font-display);
-    font-weight: 400;
-    line-height: 1.08;
-    letter-spacing: -0.012em;
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.005em;
+  }
+
+  /* Cinzel has no italic. Anywhere the old Garamond leaned for emphasis, the
+     brand's earth gold carries it instead — a synthesised oblique on an
+     inscriptional face looks like a mistake. */
+  .display em,
+  .display i {
+    font-style: normal;
+    color: var(--color-gold);
   }
 
   .caps {
@@ -156,12 +191,12 @@
     background-color: var(--color-cream);
     background-image: radial-gradient(
         circle at 18% 12%,
-        rgba(188, 143, 47, 0.055),
+        rgba(158, 114, 17, 0.05),
         transparent 45%
       ),
       radial-gradient(
         circle at 84% 78%,
-        rgba(109, 101, 89, 0.05),
+        rgba(116, 122, 58, 0.055),
         transparent 42%
       );
   }

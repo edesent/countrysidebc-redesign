@@ -73,10 +73,52 @@ Type: **EB Garamond** for display, **Inter** for body, **Cinzel** for the small
 letterspaced caps. All three are self-hosted in `public/fonts` — `next/font/google`
 can fail the Vercel build outright, so do not switch to it.
 
-EB Garamond ships as **two faces**: `ebgaramond.woff2` (roman) and
-`ebgaramond-italic.woff2`. Both `@font-face` rules are required. With the italic
-alone, every heading renders italic and the emphasis italics on "used to be",
-the service times, and the section numerals silently stop meaning anything.
+### The brand guide governs type and colour
+
+The church issued a brand guide in 2026 and the site follows it. Before changing
+a colour or a typeface, know these rules:
+
+**Colours** — five, and only these:
+
+| Name | Hex | Where |
+| --- | --- | --- |
+| Olive Tree | `#747A3A` | eyebrows, links, secondary accents (`oak` tokens) |
+| Soft Gold | `#FCD68A` | decorative only — too pale for text (`gold-light`) |
+| Earth | `#9E7211` | the readable gold: accent text, rules (`gold`) |
+| Off-White | `#FFFBF6` | the page ground (`cream`) |
+| Charcoal | `#2B3422` | text and dark bands (`ink`) |
+
+The Tailwind token *names* are inherited from the pre-guide build (`ink`, `oak`,
+`gold`, `cream`…) because ~600 class names reference them. `globals.css` maps
+each one to its brand role; brand-named aliases (`--color-olive`, `--color-earth`,
+`--color-charcoal`, `--color-soft-gold`, `--color-off-white`) exist for new work.
+
+**Type** — three roles, and the guide is explicit about the boundaries:
+
+- The **script** is for the church's name and a welcome sign only. It is *never*
+  used for headings or body text, which is why it appears on this site solely
+  inside the logo artwork.
+- **Cinzel Bold** is headings and titles, *never* body text. Its lowercase is
+  small capitals, so every heading is set about **0.76x** the size it was under
+  the old Garamond and slightly tighter — the same string is far wider in caps.
+  Cinzel has **no italic**: anywhere the old build leaned for emphasis, Earth
+  gold carries it instead, and `.display em` forces `font-style: normal`.
+- **Body text** is Century Gothic in the guide. That is a licensed Monotype face
+  and cannot be embedded on a website, so the site self-hosts **Poppins** — the
+  closest freely licensable geometric sans (same single-storey `a`, round bowls,
+  tall x-height) at 400/600/700. If the church ever buys a Century Gothic web
+  licence, swapping those three files and the family name in `globals.css` is the
+  whole change.
+
+**Long quotations are body text, not titles.** The scripture banner, the pastor's
+welcome quote and the mission statement are set in the body face at a generous
+size. A whole verse in small capitals is not readable, and the guide bars Cinzel
+from body text — both point the same way.
+
+The OG image is rendered by Satori, which reads ttf and not woff2, so
+`src/og-fonts/` carries static copies: `cinzel-bold.ttf` is the variable Cinzel
+pinned at wght 700 (Satori cannot instance a variable font itself) plus
+`poppins-regular.ttf`.
 
 Custom classes (`.display`, `.eyebrow`, `.caps`, `.paper`, `.ref`) live inside
 `@layer components` so Tailwind utilities still beat them. Keep new ones there —
@@ -100,25 +142,19 @@ an unlayered `.display { color: … }` would override every `text-*` utility.
 
 The church has no vector copy. The largest raster in existence anywhere — their
 own WordPress media library tops out here — is a 326x175 PNG, checked in as
-`public/csbc/wordmark-source.png`. The lettering was colour-separated and re-traced with smoothed contours.
-The Bible outline follows the source as continuous curves, removing the broken
-white highlights in the earlier automatic trace. Both variants share geometry. Two colourways are checked in and are the only two you should need:
+`public/csbc/wordmark-source.png`. The original PNG is embedded unchanged in two cropped SVG wrappers, preserving the source lettering and Bible contours. The cream variant shows the original colours; the ink variant applies an SVG colour matrix for contrast on cream, preserving alpha. A larger original is still needed for sharper large-format use.
 
-| File | Colours | Use on |
-| --- | --- | --- |
-| `public/csbc/wordmark-ink.svg` | ink `#221e17` + gold `#a77a24` | cream bands (navbar) |
-| `public/csbc/wordmark-cream.svg` | cream `#fbf7ee` + gold `#ffd479` | ink bands (footer) |
-
-The cream version is the church's **own** footer artwork — white lettering over
-the gold Bible — so it is their variant, not a recolour we invented. The gold is
-darkened to `#a77a24` on cream purely for contrast.
+| File | Use |
+| --- | --- |
+| `public/csbc/wordmark-ink.svg` | cream bands, colour-filtered original |
+| `public/csbc/wordmark-cream.svg` | dark bands, untouched original |
 
 Rules:
 
 - **Do not substitute a script font for the lettering.** It is engraved English
-  script that no webfont in the stack matches. Re-trace from
-  `wordmark-source.png` if either SVG ever needs regenerating.
-- The traced artwork is cropped to the ink (`viewBox="-2 39 332 97"`, with a little clearance for the strokes). The source PNG has ~41px of dead padding above and below the mark;
+  script that no webfont in the stack matches. Embed
+  `wordmark-source.png` unchanged if either SVG ever needs regenerating.
+- The original artwork is cropped to the ink (`viewBox="-2 39 332 97"`, with a little clearance for the strokes). The source PNG has ~41px of dead padding above and below the mark;
   keeping it would force the navbar half again as tall.
 - Size the logo by **width** only — `Logo` sets `h-auto`. It no longer responds
   to font-size the way the old type-set version did.

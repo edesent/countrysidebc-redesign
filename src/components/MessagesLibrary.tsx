@@ -149,7 +149,7 @@ export function LatestMessages({ messages }: { messages: MessageItem[] }) {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
             <p className="eyebrow">Sermons</p>
-            <h2 className="display mt-4 text-[clamp(2.1rem,4.4vw,3.3rem)] text-ink">
+            <h2 className="display mt-4 text-[clamp(1.60rem,3.34vw,2.51rem)] text-ink">
               Every service, preached and posted.
             </h2>
             <p className="mt-6 leading-relaxed text-text-light">

@@ -10,7 +10,7 @@ export default function FindUs() {
         <div className="grid items-start gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
           <div>
             <p className="eyebrow">Come and see</p>
-            <h2 className="display mt-4 text-[clamp(2.1rem,4.4vw,3.3rem)] text-ink">
+            <h2 className="display mt-4 text-[clamp(1.60rem,3.34vw,2.51rem)] text-ink">
               You will not have to figure it out on your own.
             </h2>
             <p className="mt-6 leading-relaxed text-text-light">

@@ -26,7 +26,7 @@ export default function WelcomePastor() {
 
         <div>
           <p className="eyebrow">A word from our pastor</p>
-          <blockquote className="display mt-6 text-[clamp(1.65rem,3.1vw,2.4rem)] leading-[1.24] text-ink">
+          <blockquote className="mt-6 text-[clamp(1.2rem,2.3vw,1.72rem)] leading-[1.5] text-ink">
             <span aria-hidden="true" className="text-gold">
               &ldquo;
             </span>
@@ -39,7 +39,7 @@ export default function WelcomePastor() {
           <div className="mt-8 flex items-center gap-4">
             <span aria-hidden="true" className="h-px w-10 bg-gold" />
             <div>
-              <p className="display text-xl italic text-oak-dark">
+              <p className="display text-lg text-oak-dark">
                 {pastor.name}
               </p>
               <p className="caps mt-1 text-[0.63rem] font-semibold text-text-muted">

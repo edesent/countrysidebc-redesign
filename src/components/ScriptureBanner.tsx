@@ -22,7 +22,7 @@ export default function ScriptureBanner() {
 
       <div className="relative mx-auto max-w-4xl px-6 py-24 text-center lg:px-10 lg:py-32">
         <p className="eyebrow text-gold-light/80">Our text</p>
-        <blockquote className="display mt-8 text-[clamp(1.6rem,3.6vw,2.85rem)] leading-[1.32] text-cream">
+        <blockquote className="mt-8 text-[clamp(1.3rem,2.9vw,2.15rem)] font-normal leading-[1.5] text-cream">
           Holding forth the word of life; that I may rejoice in the day of
           Christ, that I have not run in vain, neither laboured in vain.
         </blockquote>

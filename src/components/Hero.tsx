@@ -104,11 +104,11 @@ export default function Hero() {
             Established {site.founded}
           </p>
 
-          <h1 className="display animate-fade-up delay-1 mt-6 text-[clamp(2.9rem,6.6vw,5.1rem)] text-ink">
+          <h1 className="display animate-fade-up delay-1 mt-6 text-[clamp(2.20rem,5.02vw,3.88rem)] text-ink">
             Church the way
             <br />
             it{" "}
-            <span className="relative italic text-oak-dark">
+            <span className="relative text-gold">
               used to be
               <span
                 aria-hidden="true"

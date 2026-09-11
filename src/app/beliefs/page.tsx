@@ -56,7 +56,7 @@ export default function BeliefsPage() {
                 <ol className="mt-5 space-y-2.5">
                   {faithArticles.map((article, index) => (
                     <li key={article.id} className="flex gap-3">
-                      <span className="display shrink-0 text-[0.78rem] italic text-gold">
+                      <span className="display shrink-0 text-[0.78rem] text-gold">
                         {String(index + 1).padStart(2, "0")}
                       </span>
                       <a
@@ -82,10 +82,10 @@ export default function BeliefsPage() {
                     }
                   >
                     <div className="flex items-baseline gap-4">
-                      <span className="display text-[0.9rem] italic text-gold">
+                      <span className="display text-[0.9rem] text-gold">
                         {String(index + 1).padStart(2, "0")}
                       </span>
-                      <h2 className="display text-[clamp(1.8rem,3.4vw,2.4rem)] leading-tight text-ink">
+                      <h2 className="display text-[clamp(1.37rem,2.58vw,1.82rem)] leading-tight text-ink">
                         {article.title}
                       </h2>
                     </div>
@@ -96,7 +96,7 @@ export default function BeliefsPage() {
                 ))}
 
                 <div className="mt-16 rounded-sm border border-linen-dark bg-parchment p-8 sm:p-10">
-                  <h2 className="display text-[clamp(1.6rem,3vw,2.1rem)] text-ink">
+                  <h2 className="display text-[clamp(1.22rem,2.28vw,1.60rem)] text-ink">
                     Questions about any of this?
                   </h2>
                   <p className="mt-4 leading-relaxed text-text-light">

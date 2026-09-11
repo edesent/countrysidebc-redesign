@@ -57,7 +57,7 @@ export default function WhoWeArePage() {
             <div className="grid gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
               <div>
                 <p className="eyebrow">What we believe, in short</p>
-                <h2 className="display mt-4 text-[clamp(2rem,4vw,2.9rem)] text-ink">
+                <h2 className="display mt-4 text-[clamp(1.52rem,3.04vw,2.20rem)] text-ink">
                   Independent, Baptist, and unembarrassed about both.
                 </h2>
                 <div className="mt-8 space-y-6 text-[1.03rem] leading-[1.75] text-text-body">

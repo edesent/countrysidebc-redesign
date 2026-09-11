@@ -31,7 +31,7 @@ export default function StillThatChurch() {
         <div className="grid gap-14 lg:grid-cols-[1fr_1.08fr] lg:gap-20">
           <div className="lg:sticky lg:top-32 lg:self-start">
             <p className="eyebrow">What that actually means</p>
-            <h2 className="display mt-4 text-[clamp(2.1rem,4.4vw,3.3rem)] text-ink">
+            <h2 className="display mt-4 text-[clamp(1.60rem,3.34vw,2.51rem)] text-ink">
               &ldquo;The way it used to be&rdquo; is not nostalgia. It is four
               decisions.
             </h2>
@@ -69,7 +69,7 @@ export default function StillThatChurch() {
             {marks.map((mark, index) => (
               <li key={mark.title} className="bg-cream p-7 lg:p-9">
                 <div className="flex items-baseline gap-4">
-                  <span className="display text-[0.95rem] italic text-gold">
+                  <span className="display text-[0.95rem] text-gold">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h3 className="display text-[1.6rem] leading-tight text-ink">

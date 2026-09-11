@@ -47,7 +47,7 @@ export default function ContactPage() {
             <div className="grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
               <div>
                 <p className="eyebrow">Send a message</p>
-                <h2 className="display mt-4 text-[clamp(1.9rem,3.6vw,2.6rem)] text-ink">
+                <h2 className="display mt-4 text-[clamp(1.44rem,2.74vw,1.98rem)] text-ink">
                   Share your details and a member of our staff will reach out.
                 </h2>
                 <div className="mt-9">
@@ -129,7 +129,7 @@ export default function ContactPage() {
                         <span className="text-[0.98rem] text-ink">
                           {service.title}
                         </span>
-                        <span className="display shrink-0 text-[1.15rem] italic tabular-nums text-oak-dark">
+                        <span className="display shrink-0 text-[1.15rem] tabular-nums text-oak-dark">
                           {service.time}
                         </span>
                       </li>
