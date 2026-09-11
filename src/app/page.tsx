@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import { LatestMessages } from "@/components/MessagesLibrary";
 import Mission from "@/components/Mission";
+import QuickFacts from "@/components/QuickFacts";
 import Navbar from "@/components/Navbar";
 import ScriptureBanner from "@/components/ScriptureBanner";
 import Services from "@/components/Services";
@@ -134,6 +135,7 @@ export default async function Home() {
       <Navbar />
       <main>
         <Hero />
+        <QuickFacts />
         <WelcomePastor />
         <Services />
         <StillThatChurch />
