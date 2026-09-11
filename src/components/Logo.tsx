@@ -1,8 +1,17 @@
 /**
- * The original church lettering, re-traced from wordmark-source.png, with
- * smooth Bible contours following the source artwork. Both colourways share
- * identical geometry. Do not replace the lettering with a script font.
- * BibleMark is a separate decorative watermark, not the church logo.
+ * The church's own logo, which the brand guide says to keep as-is.
+ *
+ * It is the original raster embedded in a cropped SVG wrapper — no lettering or
+ * Bible contour is re-traced. Each colourway is recoloured per pixel: neutral
+ * lettering and warm line art are told apart by saturation and blended by it,
+ * so the antialiased edges stay smooth, and the original alpha is preserved.
+ * A channel-driven colour filter was tried first and fringed every letter.
+ *
+ * Light bands get Charcoal lettering and an Earth line — Soft Gold on Off-White
+ * all but disappears at nav size. Dark bands use the brand's own pairing.
+ *
+ * Do not replace the lettering with a script font. BibleMark below is a separate
+ * decorative watermark, not the church logo.
  */
 
 export function BibleMark({ className = "" }: { className?: string }) {
@@ -75,7 +84,7 @@ const WORDMARK = {
   cream: "/csbc/wordmark-cream.svg",
 } as const;
 
-/** Intrinsic size of the traced artwork, cropped to the ink. */
+/** Display bounds of the original artwork, cropped to the visible mark. */
 const WORDMARK_SIZE = { width: 332, height: 97 };
 
 export default function Logo({
@@ -84,8 +93,7 @@ export default function Logo({
   className = "",
 }: LogoProps) {
   return (
-    // A two-colour SVG lockup: nothing for the image optimiser to do, and
-    // inlining the traced path data into every page would be worse.
+    // An SVG wrapper preserves the original artwork and trims its empty space.
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={WORDMARK[tone]}
