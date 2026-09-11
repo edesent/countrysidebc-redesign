@@ -21,20 +21,18 @@ import { site } from "@/lib/site";
  * from assistive tech, and the poster frame stands in whenever it cannot or
  * should not play — reduced motion, a refused autoplay, or a slow first paint.
  *
- * It is only mounted on wide viewports with motion allowed, which is a data
- * decision as much as a design one: `object-cover` in a phone-shaped box zooms
- * a 16:9 clip to a chest-height close-up, and the body copy lost contrast
- * against his suit. Gating the mount rather than hiding it with CSS means a
- * phone never downloads the 1.7MB at all.
+ * It plays on phones too. `object-cover` in a phone-shaped box crops hard to the
+ * centre, so the framing is biased right there to keep him in shot, and the
+ * mobile wash carries more cover than the desktop one because the copy sits over
+ * the whole frame rather than beside him. The mount is still gated on motion
+ * being allowed, so `prefers-reduced-motion` downloads nothing.
  */
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
-    const query = window.matchMedia(
-      "(min-width: 1024px) and (prefers-reduced-motion: no-preference)",
-    );
+    const query = window.matchMedia("(prefers-reduced-motion: no-preference)");
     const apply = () => setShowVideo(query.matches);
     apply();
     query.addEventListener("change", apply);
@@ -57,13 +55,13 @@ export default function Hero() {
       {/* Stands in for the video: reduced motion, refused autoplay, first paint. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-20 bg-[url('/video/hero-poster.jpg')] bg-cover bg-[position:64%_center]"
+        className="absolute inset-0 -z-20 bg-[url('/video/hero-poster.jpg')] bg-cover bg-[position:70%_center] lg:bg-[position:64%_center]"
       />
 
       {showVideo && (
         <video
           ref={videoRef}
-          className="hero-video absolute inset-0 -z-10 size-full object-cover object-[64%_center]"
+          className="hero-video absolute inset-0 -z-10 size-full object-cover object-[70%_center] lg:object-[64%_center]"
           poster="/video/hero-poster.jpg"
           autoPlay
           muted
@@ -83,12 +81,12 @@ export default function Hero() {
           stays visible. Kept light on purpose — this is a light site. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(251,247,238,0.90)_0%,rgba(251,247,238,0.94)_100%)] lg:bg-[linear-gradient(100deg,rgba(251,247,238,0.95)_0%,rgba(251,247,238,0.92)_30%,rgba(251,247,238,0.84)_44%,rgba(251,247,238,0.34)_60%,rgba(251,247,238,0.06)_74%,rgba(251,247,238,0)_100%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(255,251,246,0.70)_0%,rgba(255,251,246,0.80)_55%,rgba(255,251,246,0.88)_100%)] lg:bg-[linear-gradient(100deg,rgba(255,251,246,0.90)_0%,rgba(255,251,246,0.86)_30%,rgba(255,251,246,0.74)_44%,rgba(255,251,246,0.26)_60%,rgba(255,251,246,0.04)_74%,rgba(255,251,246,0)_100%)]"
       />
       {/* Blends the footage down into the section that follows. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(251,247,238,0.95)_0%,rgba(251,247,238,0.30)_14%,rgba(251,247,238,0)_36%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(255,251,246,0.92)_0%,rgba(255,251,246,0.26)_14%,rgba(255,251,246,0)_34%)]"
       />
       {/* The same faint gold horizon the hero had before the video. */}
       <div
