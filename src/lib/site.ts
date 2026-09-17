@@ -4,7 +4,7 @@
  * Items flagged CONFIRM are best-guess phrasing for the church to approve.
  */
 
-export const siteUrl = "https://countrysidebc.elijahdesent.com";
+export const siteUrl = "https://www.countrysidebc.com";
 
 export const site = {
   name: "Countryside Baptist Church",

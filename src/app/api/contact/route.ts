@@ -1,9 +1,22 @@
 import { NextResponse } from "next/server";
+import { CHAT } from "@/config/chat";
 
 /**
- * Contact form target. Posts to Slack when SLACK_WEBHOOK_URL is set (works from
- * day one, no domain verification needed); otherwise it accepts the message and
- * records it in the server log so the form is never a dead end.
+ * Contact form target.
+ *
+ * It delivers through the same WBC Chat connection the chat bubble uses, so a
+ * message opens a thread in the church's own Slack channel (#countrysidebc) and
+ * notifies whoever is on call. That path needs no env var, no incoming-webhook
+ * app and no verified sending domain, which is why it is the default: the form
+ * worked the moment the site went live.
+ *
+ * `SLACK_WEBHOOK_URL` still wins if it is ever set, for a church that would
+ * rather post into a channel of their own.
+ *
+ * The one thing this must never do is what it did before — accept the message,
+ * answer `ok`, and write it to a server log nobody reads. A form that quietly
+ * swallows a visitor asking about a funeral is worse than no form at all, so a
+ * delivery failure is reported to the sender as a failure.
  */
 
 const FIELDS = ["name", "email", "phone", "reason", "message"] as const;
@@ -36,21 +49,21 @@ export async function POST(request: Request) {
     );
   }
 
-  const lines = [
-    `*New message from the Countryside Baptist website*`,
-    `*Name:* ${name}`,
-    email ? `*Email:* ${email}` : null,
-    phone ? `*Phone:* ${phone}` : null,
-    reason ? `*About:* ${reason}` : null,
-    "",
-    message,
-  ]
-    .filter(Boolean)
-    .join("\n");
-
   const webhook = process.env.SLACK_WEBHOOK_URL;
 
   if (webhook) {
+    const lines = [
+      "*New message from the Countryside Baptist website*",
+      `*Name:* ${name}`,
+      email ? `*Email:* ${email}` : null,
+      phone ? `*Phone:* ${phone}` : null,
+      reason ? `*About:* ${reason}` : null,
+      "",
+      message,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
     try {
       const response = await fetch(webhook, {
         method: "POST",
@@ -59,21 +72,53 @@ export async function POST(request: Request) {
       });
 
       if (!response.ok) {
-        console.error("contact: slack rejected", response.status);
+        console.error("contact: slack webhook rejected", response.status);
         return NextResponse.json(
           { ok: false, error: "delivery_failed" },
           { status: 502 },
         );
       }
+      return NextResponse.json({ ok: true });
     } catch (error) {
-      console.error("contact: slack unreachable", error);
+      console.error("contact: slack webhook unreachable", error);
       return NextResponse.json(
         { ok: false, error: "delivery_failed" },
         { status: 502 },
       );
     }
-  } else {
-    console.info("contact (no SLACK_WEBHOOK_URL set):\n", lines);
+  }
+
+  // The key goes in the JSON body, not a header — sent as a header every
+  // request 401s.
+  try {
+    const response = await fetch(`${CHAT.origin}/api/chat/contact-form`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        apiKey: CHAT.apiKey,
+        subject: reason
+          ? `✉️ Website message — ${reason}`
+          : "✉️ Message from the website",
+        name,
+        contact: [email, phone].filter(Boolean).join(" · "),
+        message,
+      }),
+    });
+
+    if (!response.ok) {
+      // 503 means the key is good but Slack is not connected to that site.
+      console.error("contact: chat backend rejected", response.status);
+      return NextResponse.json(
+        { ok: false, error: "delivery_failed" },
+        { status: 502 },
+      );
+    }
+  } catch (error) {
+    console.error("contact: chat backend unreachable", error);
+    return NextResponse.json(
+      { ok: false, error: "delivery_failed" },
+      { status: 502 },
+    );
   }
 
   return NextResponse.json({ ok: true });

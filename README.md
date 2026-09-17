@@ -7,18 +7,18 @@ in Ohio in 1975. Pastor Paul Harvey.
 - Repo: `edesent/countrysidebc-redesign` (private)
 - Demo: <https://countrysidebc.elijahdesent.com>
 
-## This is a demo, not the live church site
+## This is the church's live site
 
-Two guards keep it from competing with the church's real site in search. **Both
-must be removed together, on the day this becomes the live site on their own
-domain — and not before:**
+Live on **www.countrysidebc.com** since 17 September 2026. The apex, the old
+demo subdomain (`countrysidebc.elijahdesent.com`) and the `.vercel.app` host all
+308 to `www`, so exactly one hostname serves the site.
 
-1. `src/app/robots.ts` — `disallow: "/"` for all robots.
-2. `src/app/layout.tsx` — `robots: { index: false, follow: false }`.
+`siteUrl` in `src/lib/site.ts` is the canonical host and feeds every canonical
+tag, the sitemap and the OG tags. It must stay on `www` — the apex redirects, so
+pointing it there makes every canonical a redirect.
 
-Also delete `src/components/DemoBanner.tsx` and its call in `layout.tsx` (the
-brown "Design proposal" strip), and set `siteUrl` in `src/lib/site.ts` to
-`https://countrysidebc.com`.
+The demo-era guards are gone: `src/app/robots.ts` allows all, `layout.tsx` sends
+index/follow, and `DemoBanner` is deleted. Do not reinstate them.
 
 ## For AI editors (ChatGPT, Claude, etc.) — read this before editing
 
