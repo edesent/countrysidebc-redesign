@@ -23,7 +23,7 @@ const churchSchema = {
   slogan: site.tagline,
   description: site.description,
   foundingDate: "1975-08-25",
-  image: canonical("/csbc/sanctuary-wide.jpg"),
+  image: canonical("/csbc/exterior-sunny.jpg"),
   address: {
     "@type": "PostalAddress",
     streetAddress: site.address.street,

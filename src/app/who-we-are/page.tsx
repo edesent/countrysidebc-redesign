@@ -115,6 +115,22 @@ export default function WhoWeArePage() {
                 <figure>
                   <div className="overflow-hidden rounded-sm border border-linen-dark shadow-[0_28px_60px_-32px_rgba(34,30,23,0.4)]">
                     <Image
+                      src="/csbc/exterior-sunny.jpg"
+                      alt="Countryside Baptist Church seen from the road on a summer afternoon: a white brick gable carrying a tall cross and the words COUNTRYSIDE BAPTIST, a white steeple over the low entrance wing, an American flag on the pole, and a wooded hillside rising behind the building."
+                      width={2000}
+                      height={1333}
+                      sizes="(max-width: 1024px) 100vw, 46vw"
+                      className="h-auto w-full"
+                    />
+                  </div>
+                  <figcaption className="mt-4 text-[0.79rem] leading-relaxed text-text-muted">
+                    The building on Shoemaker Road, with the hill behind it.
+                  </figcaption>
+                </figure>
+
+                <figure>
+                  <div className="overflow-hidden rounded-sm border border-linen-dark shadow-[0_28px_60px_-32px_rgba(34,30,23,0.4)]">
+                    <Image
                       src="/csbc/sanctuary-wide.jpg"
                       alt="The auditorium at Countryside Baptist Church seen from the back pews, with the communion table in the foreground reading 'This do in remembrance of me'."
                       width={1280}

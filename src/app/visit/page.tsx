@@ -110,6 +110,23 @@ export default function VisitPage() {
                 <figure className="mt-12">
                   <div className="overflow-hidden rounded-sm border border-linen-dark shadow-[0_26px_60px_-32px_rgba(34,30,23,0.4)]">
                     <Image
+                      src="/csbc/entrance.jpg"
+                      alt="The covered main entrance at Countryside Baptist Church, with the white steeple rising above the porch roof, glass double doors, and planted beds either side of the walk."
+                      width={1333}
+                      height={2000}
+                      sizes="(max-width: 1024px) 100vw, 42vw"
+                      className="h-auto w-full"
+                    />
+                  </div>
+                  <figcaption className="mt-4 text-[0.79rem] leading-relaxed text-text-muted">
+                    This is the door. The main entrance is under the steeple,
+                    straight ahead from the parking lot.
+                  </figcaption>
+                </figure>
+
+                <figure className="mt-10">
+                  <div className="overflow-hidden rounded-sm border border-linen-dark shadow-[0_26px_60px_-32px_rgba(34,30,23,0.4)]">
+                    <Image
                       src="/csbc/sanctuary-wide.jpg"
                       alt="The auditorium at Countryside Baptist Church viewed from the congregation, with families seated in the oak pews."
                       width={1280}
