@@ -16,7 +16,14 @@
 export const CHAT = {
   origin: "https://slackwebsitechat.vercel.app",
   apiKey: "wbc_455ae07359f0b4b5ff0df2453445c8c57cfeda67166695fc",
-  accentColor: "#7c5218",
+  /**
+   * The widget wears the footer's pairing: ink green behind the header, the
+   * visitor's own messages and the Send button, with soft gold on top of it.
+   * The earth gold is too dark to read on ink, which is why gold-light carries
+   * the accent here just as it does in the footer.
+   */
+  brandColor: "#2b3422",
+  accentColor: "#fcd68a",
   /** Pastor Harvey, already circle-cropped, so visitors see a person. */
   agentIcon: "/csbc/pastor-harvey-face.jpg",
   greeting:

@@ -85,6 +85,7 @@ export default function RootLayout({
           data-key={CHAT.apiKey}
           data-agent-icon-url={CHAT.agentIcon}
           data-accent-color={CHAT.accentColor}
+          data-brand-color={CHAT.brandColor}
           data-greeting={CHAT.greeting}
           defer
         />
