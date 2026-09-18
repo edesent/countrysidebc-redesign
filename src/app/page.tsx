@@ -2,6 +2,7 @@ import EternalLifeCta from "@/components/EternalLifeCta";
 import FindUs from "@/components/FindUs";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
+import LookAround from "@/components/LookAround";
 import { LatestMessages } from "@/components/MessagesLibrary";
 import Mission from "@/components/Mission";
 import QuickFacts from "@/components/QuickFacts";
@@ -140,6 +141,7 @@ export default async function Home() {
         <Services />
         <StillThatChurch />
         <Mission />
+        <LookAround />
         <ScriptureBanner />
         <LatestMessages messages={messages} />
         <EternalLifeCta />
