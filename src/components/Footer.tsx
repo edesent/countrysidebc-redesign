@@ -131,18 +131,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-cream/12 pt-6 text-[0.76rem] text-cream/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-14 border-t border-cream/12 pt-6 text-[0.76rem] text-cream/45">
           <p>
             &copy; {year} {site.name}.
-          </p>
-          <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <Link
-              href="/transparency"
-              className="focus-ring transition hover:text-gold-light"
-            >
-              Transparency &amp; Legal Information
-            </Link>
-            <span className="hidden sm:inline">EIN {site.legal.ein}</span>
           </p>
         </div>
       </div>

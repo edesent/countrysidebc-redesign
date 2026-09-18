@@ -60,9 +60,8 @@ export const site = {
     stateOfIncorporation: "Ohio",
     principalOffice: "Port Washington, Tuscarawas County, Ohio",
     statutoryAgentAddress: "4283 Shoemaker Rd SW, Port Washington, OH 43837",
-    ein: "05-0597638",
-    // Deliberately not printed in the footer copyright — the church asked for
-    // it off that line. The transparency page still states it in full.
+    // The EIN is deliberately absent: the church asked for it off the site.
+    // Do not reinstate it — neither in the footer nor on /transparency.
     orgType: "501(c)(3) Religious Organization",
   },
 } as const;

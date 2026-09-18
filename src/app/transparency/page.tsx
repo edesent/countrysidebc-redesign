@@ -24,10 +24,7 @@ const stateRows = [
   ["Statutory agent address", site.legal.statutoryAgentAddress],
 ];
 
-const federalRows = [
-  ["IRS EIN", site.legal.ein],
-  ["Organization type", site.legal.orgType],
-];
+const federalRows = [["Organization type", site.legal.orgType]];
 
 function Table({ rows }: { rows: string[][] }) {
   return (
