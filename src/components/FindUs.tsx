@@ -17,7 +17,8 @@ export default function FindUs() {
               Nobody will ask you to stand up, introduce yourself, or fill
               anything out. Park off Shoemaker Road, come in the main entrance,
               and somebody will point you where you need to go. Come as you are
-              able &mdash; you will see suits and you will see shirtsleeves.
+              able &mdash; you will see suits, and you will see slacks and a
+              shirt.
             </p>
 
             <dl className="mt-10 space-y-5 border-t border-linen pt-8">

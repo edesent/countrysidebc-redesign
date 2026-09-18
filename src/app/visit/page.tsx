@@ -119,7 +119,7 @@ export default function VisitPage() {
                     />
                   </div>
                   <figcaption className="mt-4 text-[0.79rem] leading-relaxed text-text-muted">
-                    This is the room. No screens, no stage lights &mdash; a
+                    This is the room. No stage lights &mdash; a Bible and a
                     hymnal in the rack in front of you.
                   </figcaption>
                 </figure>

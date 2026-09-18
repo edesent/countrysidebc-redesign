@@ -9,7 +9,7 @@ const marks = [
   },
   {
     title: "Hymns out of the hymnal",
-    body: "Classic hymns that honor our Saviour, sung by the whole congregation. There is no band and there are no screens — just a piano, a hymn number, and everybody singing the same words.",
+    body: "Classic hymns that honor our Saviour, sung by the whole congregation. There is no band — just a piano, a hymn number, and everybody singing the same words.",
     ref: "Ephesians 5:19",
   },
   {
@@ -36,9 +36,9 @@ export default function StillThatChurch() {
               decisions.
             </h2>
             <p className="mt-6 leading-relaxed text-text-light">
-              Plenty of churches say they are old-fashioned. Here is exactly what
-              we mean by it, so you know what Sunday will be like before you ever
-              walk through the door.
+              Plenty of churches say they are old-fashioned. Here is exactly
+              what we mean by it, so you know what Sunday will be like before
+              you ever walk through the door.
             </p>
 
             <figure className="mt-10">

@@ -133,7 +133,7 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-cream/12 pt-6 text-[0.76rem] text-cream/45 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            &copy; {year} {site.name}. {site.legal.orgType}.
+            &copy; {year} {site.name}.
           </p>
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <Link
@@ -142,9 +142,7 @@ export default function Footer() {
             >
               Transparency &amp; Legal Information
             </Link>
-            <span className="hidden sm:inline">
-              EIN {site.legal.ein}
-            </span>
+            <span className="hidden sm:inline">EIN {site.legal.ein}</span>
           </p>
         </div>
       </div>

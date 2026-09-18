@@ -61,6 +61,8 @@ export const site = {
     principalOffice: "Port Washington, Tuscarawas County, Ohio",
     statutoryAgentAddress: "4283 Shoemaker Rd SW, Port Washington, OH 43837",
     ein: "05-0597638",
+    // Deliberately not printed in the footer copyright — the church asked for
+    // it off that line. The transparency page still states it in full.
     orgType: "501(c)(3) Religious Organization",
   },
 } as const;
@@ -97,7 +99,7 @@ export const serviceTimes: ServiceTime[] = [
     opens: "11:00",
     closes: "12:15",
     blurb:
-      "Hymns from the hymnal, an offering, and preaching from the King James Bible. This is the service most visitors come to first.",
+      "Hymns from the hymnal, an offering, and preaching from the King James Bible. This is the service most visitors come to first. Junior Church is available for N3 through 6th grade.",
   },
   {
     day: "Sunday",
@@ -236,7 +238,7 @@ export const visitFacts = [
   },
   {
     q: "What is the music like?",
-    a: "Classic hymns out of the hymnal, sung by the congregation. No band, no screens.",
+    a: "Classic hymns out of the hymnal, sung by the congregation. No band.",
   },
   {
     q: "What about my children?",
