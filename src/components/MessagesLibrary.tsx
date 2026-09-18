@@ -1,7 +1,11 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { MessageItem } from "@/lib/messages";
 import { site } from "@/lib/site";
+import SermonPlayer, { isPlainClick } from "@/components/SermonPlayer";
 
 function PlayBadge({ small = false }: { small?: boolean }) {
   return (
@@ -26,9 +30,12 @@ export function MessageCard({
   message,
   featured = false,
   compact = false,
+  onPlay,
 }: {
   message: MessageItem;
   featured?: boolean;
+  /** Opens the service in the lightbox instead of following the link out. */
+  onPlay?: (message: MessageItem) => void;
   /**
    * A thumbnail beside the title instead of above it. The homepage pairs one
    * featured service with three of these; stacked full-width cards ran far
@@ -42,6 +49,11 @@ export function MessageCard({
       href={message.url}
       target="_blank"
       rel="noreferrer"
+      onClick={(event) => {
+        if (!onPlay || !isPlainClick(event)) return;
+        event.preventDefault();
+        onPlay(message);
+      }}
       className={`focus-ring group overflow-hidden rounded-sm border border-linen-dark bg-cream transition-shadow hover:shadow-[0_26px_55px_-32px_rgba(34,30,23,0.45)] ${
         compact ? "flex items-stretch gap-0" : "flex flex-col"
       }`}
@@ -131,6 +143,8 @@ function FeedFallback() {
 
 /** Homepage strip: the newest service played large, then the next three. */
 export function LatestMessages({ messages }: { messages: MessageItem[] }) {
+  const [playing, setPlaying] = useState<MessageItem | null>(null);
+
   if (messages.length === 0) {
     return (
       <section className="section-pad paper">
@@ -154,8 +168,8 @@ export function LatestMessages({ messages }: { messages: MessageItem[] }) {
             </h2>
             <p className="mt-6 leading-relaxed text-text-light">
               Sunday morning, Sunday evening, and Wednesday night all go up on
-              our channel. Listen to one before you visit — you will know exactly
-              what the preaching is like.
+              our channel. Listen to one before you visit — you will know
+              exactly what the preaching is like.
             </p>
           </div>
           <Link
@@ -181,14 +195,20 @@ export function LatestMessages({ messages }: { messages: MessageItem[] }) {
         </div>
 
         <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1.35fr_1fr]">
-          <MessageCard message={featured} featured />
+          <MessageCard message={featured} featured onPlay={setPlaying} />
           <div className="grid gap-4">
             {rest.slice(0, 3).map((message) => (
-              <MessageCard key={message.id} message={message} compact />
+              <MessageCard
+                key={message.id}
+                message={message}
+                compact
+                onPlay={setPlaying}
+              />
             ))}
           </div>
         </div>
       </div>
+      <SermonPlayer message={playing} onClose={() => setPlaying(null)} />
     </section>
   );
 }
@@ -199,15 +219,20 @@ export default function MessagesLibrary({
 }: {
   messages: MessageItem[];
 }) {
+  const [playing, setPlaying] = useState<MessageItem | null>(null);
+
   if (messages.length === 0) {
     return <FeedFallback />;
   }
 
   return (
-    <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {messages.map((message) => (
-        <MessageCard key={message.id} message={message} />
-      ))}
-    </div>
+    <>
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {messages.map((message) => (
+          <MessageCard key={message.id} message={message} onPlay={setPlaying} />
+        ))}
+      </div>
+      <SermonPlayer message={playing} onClose={() => setPlaying(null)} />
+    </>
   );
 }

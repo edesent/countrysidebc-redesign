@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { site } from "@/lib/site";
 
 /**
  * Three photographs of the church itself, on the homepage.
@@ -34,12 +35,13 @@ export default function LookAround() {
         <div className="max-w-2xl">
           <p className="eyebrow">A look around</p>
           <h2 className="display mt-4 text-[clamp(1.60rem,3.34vw,2.51rem)] text-ink">
-            The place itself.
+            Where we meet.
           </h2>
           <p className="mt-6 leading-relaxed text-text-light">
-            Not a stock photograph anywhere on this site. This is the building
-            on Shoemaker Road, and the pulpit you would be looking at on
-            Sunday.
+            A white brick building with a steeple, set against the hill on
+            Shoemaker Road, a few minutes off US&#8209;36. An Independent
+            Baptist church that has been meeting in this corner of Tuscarawas
+            County since {site.founded}.
           </p>
         </div>
 
