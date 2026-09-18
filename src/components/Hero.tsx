@@ -119,8 +119,8 @@ export default function Hero() {
           <p className="animate-fade-up delay-2 mt-9 max-w-xl text-[1.09rem] leading-relaxed text-text-light">
             An Independent Baptist church on Shoemaker Road, preaching the King
             James Bible and singing the old hymns out of the hymnal — the same
-            way we have since {site.founded}. No screens, no smoke, no sales
-            pitch. Just the Book, sung and preached, and a seat saved for you.
+            way we have since {site.founded}. No smoke, no sales pitch. Just the
+            Book, sung and preached, and a seat saved for you.
           </p>
 
           <div className="animate-fade-up delay-3 mt-10 flex flex-wrap items-center gap-3">
