@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { CHAT } from "@/config/chat";
+import { spamReason } from "@/lib/antispam";
 
 /**
  * Contact form target.
@@ -19,21 +20,48 @@ import { CHAT } from "@/config/chat";
  * delivery failure is reported to the sender as a failure.
  */
 
-const FIELDS = ["name", "email", "phone", "reason", "message"] as const;
+type Payload = Record<string, unknown>;
 
-type Payload = Partial<Record<(typeof FIELDS)[number], string>>;
+// Per-IP budget. In-memory, so it resets on a cold start — a floor, not a wall.
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
+const hits = new Map<string, number[]>();
+
+function rateLimited(request: Request) {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+  const now = Date.now();
+  const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  recent.push(now);
+  hits.set(ip, recent);
+  return recent.length > MAX_PER_WINDOW;
+}
 
 function clean(value: unknown, max = 2000) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 
 export async function POST(request: Request) {
+  if (rateLimited(request)) {
+    return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
+  }
+
   let body: Payload;
 
   try {
     body = (await request.json()) as Payload;
+    if (typeof body !== "object" || body === null || Array.isArray(body)) {
+      throw new Error("not an object");
+    }
   } catch {
     return NextResponse.json({ ok: false, error: "bad_request" }, { status: 400 });
+  }
+
+  // Spam gets the same `ok` a real message does, and goes nowhere.
+  const spam = spamReason(body);
+  if (spam) {
+    console.info("contact: dropped as spam", spam);
+    return NextResponse.json({ ok: true });
   }
 
   const name = clean(body.name, 120);

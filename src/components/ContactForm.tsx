@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
 
 const reasons = [
   "Planning a first visit",
@@ -18,6 +18,7 @@ export default function ContactForm() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
   );
+  const shownAt = useRef(Date.now());
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -36,6 +37,8 @@ export default function ContactForm() {
           phone: data.get("phone"),
           reason: data.get("reason"),
           message: data.get("message"),
+          website: data.get("website"),
+          elapsedMs: Date.now() - shownAt.current,
         }),
       });
 
@@ -72,7 +75,10 @@ export default function ContactForm() {
         </p>
         <button
           type="button"
-          onClick={() => setState("idle")}
+          onClick={() => {
+            shownAt.current = Date.now();
+            setState("idle");
+          }}
           className="focus-ring caps mt-7 text-[0.66rem] font-semibold text-oak-dark"
         >
           Send another message
@@ -84,8 +90,16 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-sm border border-linen-dark bg-parchment p-6 shadow-[0_24px_55px_-38px_rgba(34,30,23,0.4)] sm:p-8"
+      className="relative rounded-sm border border-linen-dark bg-parchment p-6 shadow-[0_24px_55px_-38px_rgba(34,30,23,0.4)] sm:p-8"
     >
+      {/* Honeypot: hidden from people and screen readers, filled by bots. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label>
+          Website
+          <input name="website" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="space-y-2">
           <span className={label}>Your name</span>
